@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Musafir Cafe — A winter café in the hills of Mussoorie</title>
+<meta name="description" content="Musafir Cafe, Landour, Mussoorie. Outdoor seating in falling snow, slow chai, winterline sunsets. Open daily 7:30 AM – 9 PM, Dec–Feb snow standby." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MUSAFIR CAFE — real mountain café. Travel-journal aesthetic.
+   Pure CSS keyframes + vanilla JS only. Slow & unhurried.
+   ============================================================ */
+:root{
+  --paper:#E8DFC9;
+  --paper-deep:#DCCFB2;
+  --cream:#F7F1E4;
+  --ink:#1F1610;
+  --ink-soft:#5A4C3E;
+  --terra:#A84A2A;
+  --terra-deep:#8A3A20;
+  --terra-glow:rgba(168,74,42,.32);
+  --pine:#3A5F58;
+  --pine-deep:#2A463F;
+  --brass:#9A7A2A;
+  --mist-blue:rgba(140,160,172,.28);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Work Sans",system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.22,.61,.21,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--terra);color:#fff}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;margin:0;letter-spacing:-.01em;text-align:left}
+p{line-height:1.7;color:var(--ink-soft);text-align:left}
+section{scroll-margin-top:80px}
+
+/* paper grain over everything — worn journal feel */
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.10;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");}
+
+/* ============ NAV — stamp, top-left ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 32px;background:linear-gradient(to bottom,rgba(232,223,201,.94),rgba(232,223,201,.6) 70%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);transition:color 1.2s var(--ease)}
+.stamp{width:44px;height:44px;border:2px solid var(--terra);border-radius:50%;display:grid;place-items:center;
+  color:var(--terra);transform:rotate(-6deg);background:rgba(247,241,228,.6);box-shadow:inset 0 0 0 3px rgba(247,241,228,.7),inset 0 0 0 4px rgba(168,74,42,.4);flex-shrink:0}
+.brand-name{font-family:var(--serif);font-size:1.4rem;line-height:1}
+.brand-name em{color:var(--terra);font-style:italic}
+.brand-sub{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.3em;color:var(--ink-soft);margin-top:3px}
+.nav-links{display:flex;gap:22px}
+.nav-link{  position:relative;text-decoration:none;color:var(--ink);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 0;opacity:.85;transition:opacity .6s,color 1.2s var(--ease)}
+.nav-link:hover{opacity:1}
+.nav-link::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:100%;background:var(--terra);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease)}
+.nav-link:hover::after{transform:scaleX(1)}
+.nav-toggle{display:none;background:none;border:0;flex-direction:column;gap:6px;cursor:pointer;padding:8px}
+.nav-toggle span{width:24px;height:2px;background:var(--ink);display:block}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  padding:15px 28px;border-radius:100px;text-decoration:none;cursor:pointer;border:1px solid transparent;
+  transition:transform .8s var(--ease),box-shadow .8s var(--ease),background .8s,color .8s;will-change:transform;font-family:var(--sans)}
+.btn-terra{background:var(--terra);color:#fff}
+.btn-terra:hover{transform:translateY(-3px);box-shadow:0 12px 32px var(--terra-glow),0 2px 8px rgba(0,0,0,.12);background:var(--terra-deep)}
+.btn-line{border-color:rgba(31,22,16,.4);color:var(--ink);background:rgba(247,241,228,.55)}
+.btn-line:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(31,22,16,.16);border-color:var(--terra)}
+.btn-small{padding:10px 20px;font-size:.7rem;background:var(--ink);color:var(--cream)}
+.btn-small:hover{transform:translateY(-2px);box-shadow:0 10px 26px var(--terra-glow);background:var(--terra-deep)}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;
+  padding:130px 0 0;background:linear-gradient(to bottom,#cfd6d4 0%,#bcc7c4 30%,#a9bcae 55%,#d9d0b8 78%,#cfc0a2 100%);
+  animation:heroEnter 1.6s var(--ease) both}
+@keyframes heroEnter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.sky{position:absolute;inset:0;background:
+  radial-gradient(900px 420px at 30% 16%,rgba(255,251,240,.85),transparent 65%),
+  radial-gradient(700px 380px at 75% 30%,rgba(255,255,255,.35),transparent 60%),
+  linear-gradient(to bottom,#dde2dc,#c2cdc5 45%,#aebdaa)}
+.cold-overlay{position:absolute;inset:0;background:var(--mist-blue);mix-blend-mode:multiply;transition:background 1.8s var(--ease)}
+.hills{position:absolute;left:0;right:0;width:100%;pointer-events:none}
+.hills-far{top:12%;height:38%;fill:#7d938b;opacity:.75;filter:blur(.6px)}
+.hills-far .snow{fill:rgba(245,243,236,.9)}
+.hills-mid{top:30%;height:34%;fill:#57706a;opacity:.9;filter:blur(.3px)}
+
+/* pines */
+.pines{position:absolute;top:34%;display:flex;gap:6px;z-index:3;opacity:.92}
+.pines-left{left:2%}.pines-right{right:3%}
+.pine{fill:var(--pine-deep);transform-origin:50% 95%;animation:sway 7.5s ease-in-out infinite;will-change:transform}
+.pine rect{fill:#3a2a20}
+.pine-1{width:84px}.pine-2{width:58px;margin-top:40px;opacity:.8;animation-delay:-2s;animation-duration:8.6s}
+.pine-3{width:44px;margin-top:70px;opacity:.65;animation-delay:-4s}
+.pine-4{width:72px;animation-delay:-1s}.pine-5{width:48px;margin-top:50px;opacity:.7;animation-delay:-3.4s;animation-duration:9.2s}
+@keyframes sway{0%,100%{transform:rotate(-1.3deg)}50%{transform:rotate(1.3deg)}}
+
+/* café building */
+.cafe{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:min(920px,94vw);z-index:4}
+.cafe-roof{height:22px;margin:0 40px;border-radius:6px 6px 0 0;background:linear-gradient(to bottom,#7a5a45,#4e382b);box-shadow:0 4px 18px rgba(0,0,0,.25);position:relative}
+.cafe-roof::after{content:"";position:absolute;inset:6px 18px 0;border-top:2px dashed rgba(247,241,228,.35)}
+.cafe-post{position:absolute;top:22px;bottom:110px;width:14px;background:linear-gradient(to right,#6b4d3a,#463023);border-radius:4px}
+.post-left{left:56px}.post-right{right:56px}
+.light-string{position:absolute;top:26px;left:70px;right:70px;height:56px}
+.wire path{stroke:#3a2a20;stroke-width:2}
+.bulbs{position:absolute;inset:0}
+.bulb{position:absolute;top:8px;width:2px;height:16px;background:#3a2a20;transform-origin:top center;animation:bulbSway 5.5s ease-in-out infinite}
+.bulb i{position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,#ffe9b8,#dd9440 70%);box-shadow:0 0 14px 4px rgba(255,205,120,.55);animation:bulbGlow 4s ease-in-out infinite;transition:box-shadow 1.8s var(--ease)}
+.b1{left:4%}.b2{left:19%;animation-delay:-1s}.b3{left:34%;animation-delay:-2.2s}.b4{left:50%;animation-delay:-.6s}.b5{left:66%;animation-delay:-3s}.b6{left:81%;animation-delay:-1.8s}.b7{left:95%;animation-delay:-2.6s}
+@keyframes bulbSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes bulbGlow{0%,100%{opacity:.75}50%{opacity:1}}
+
+.deck{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:34px;
+  background:linear-gradient(to bottom,#8a6a52,#6b4d3a 30%,#4e382b);border-radius:10px 10px 0 0;
+  padding:34px 30px 0;min-height:230px;box-shadow:inset 0 2px 0 rgba(255,255,255,.25)}
+.deck::before{content:"";position:absolute;top:10px;left:20px;right:20px;height:2px;
+  background:repeating-linear-gradient(to right,rgba(0,0,0,.18) 0 18px,transparent 18px 26px)}
+.cafe-door{position:absolute;right:26px;bottom:0;width:86px;height:150px;border-radius:8px 8px 0 0;
+  background:linear-gradient(to bottom,#3a2a20,#241a13);border:2px solid #201610;border-bottom:0;
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;overflow:hidden}
+.door-glow{position:absolute;inset:18px 12px 34px;background:linear-gradient(to bottom,#ffcf8a,#a84a2a);opacity:.55;filter:blur(1px);border-radius:4px;animation:doorBreathe 6s ease-in-out infinite}
+@keyframes doorBreathe{0%,100%{opacity:.45}50%{opacity:.65}}
+.door-sign{position:relative;font-family:var(--serif);font-style:italic;color:#f6e8c8;font-size:.82rem;white-space:nowrap}
+
+/* people — almost still */
+.person{position:relative;width:66px;display:flex;flex-direction:column;align-items:center}
+.person .head{width:30px;height:30px;border-radius:50%;background:#d9b89a;position:relative;z-index:2;box-shadow:inset -3px -3px 0 rgba(0,0,0,.12)}
+.person .body{width:52px;height:62px;margin-top:-6px;border-radius:18px 18px 8px 8px;position:relative;z-index:1}
+.p-green .body{background:#4a5d4e}.p-rust .body{background:#9a5a44}.p-navy .body{background:#3a4a5c}
+.p-cream .body.long{height:88px;background:#c9bda8;border-radius:16px}
+.cap{position:absolute;top:-7px;left:2px;right:2px;height:12px;background:#37424a;border-radius:8px 8px 3px 3px}
+.cap::after{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--terra);border-radius:50%}
+.shawl{position:absolute;inset:-5px -7px auto;height:20px;background:#b77a5a;border-radius:12px}
+.beanie{position:absolute;top:-8px;left:0;right:0;height:14px;background:#7a3b32;border-radius:10px 10px 4px 4px}
+.scarf{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:34px;height:8px;background:var(--brass);border-radius:4px}
+.arm{position:absolute;top:18px;width:14px;height:40px;background:inherit;border-radius:8px;filter:brightness(.92)}
+.person-sit .arm{left:2px;transform:rotate(8deg)}
+.arm-lift{animation:handLift 7s ease-in-out infinite;transform-origin:top center}
+.arm-lift.slow{animation-duration:9.5s;animation-delay:-3s}
+@keyframes handLift{0%,100%{transform:rotate(8deg) translateY(0)}30%{transform:rotate(18deg) translateY(-5px)}55%{transform:rotate(10deg) translateY(-1px)}}
+.cup-mini{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:12px;height:10px;background:#f7f1e4;border-radius:0 0 4px 4px;border:1.5px solid #463023}
+.head-turn{animation:headTurn 9s ease-in-out infinite;transform-origin:50% 80%}
+.head-turn-2{animation:headTurn 11s ease-in-out infinite reverse}
+@keyframes headTurn{0%,100%{transform:rotate(0)}25%{transform:rotate(4deg)}60%{transform:rotate(-3deg)}}
+.person-stand{padding-bottom:18px}
+.person-stand .legs{width:34px;height:44px;background:#2e2a26;border-radius:0 0 6px 6px;margin-top:-4px}
+.holding-steam{position:absolute;right:-18px;top:46px}
+.table-group{display:flex;align-items:flex-end;gap:12px;position:relative;padding-bottom:22px}
+.table{display:flex;flex-direction:column;align-items:center}
+.table-top{width:128px;height:14px;border-radius:8px;background:linear-gradient(to bottom,#9a7358,#6b4d3a);position:relative;
+  display:flex;justify-content:center;gap:18px;align-items:flex-end;padding-bottom:12px;box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.table-leg{width:12px;height:56px;background:#463023}
+.bench{position:absolute;bottom:8px;left:0;right:0;height:10px;background:#3a2a20;border-radius:6px;opacity:.9}
+.stool{width:44px;height:38px;background:#3a2a20;border-radius:6px 6px 0 0;margin-bottom:22px}
+.cup{position:relative;width:26px;height:22px;background:linear-gradient(to bottom,#fdf8ee,#e8d9c2);border:1.5px solid #463023;border-top-width:2.5px;border-radius:3px 3px 9px 9px}
+.cup::after{content:"";position:absolute;right:-8px;top:4px;width:9px;height:10px;border:2px solid #463023;border-left:0;border-radius:0 6px 6px 0}
+
+/* signature steam */
+.steam{position:absolute;bottom:100%;left:50%;width:30px;height:70px;pointer-events:none;transform:translateX(-50%)}
+.steam .s{position:absolute;bottom:0;left:50%;width:7px;height:44px;border-radius:10px;
+  background:linear-gradient(to top,rgba(255,255,255,0),rgba(255,255,255,.85),rgba(255,255,255,0));
+  filter:blur(2.5px);opacity:0;transform-origin:50% 100%;animation:steamRise 3.8s ease-in-out infinite;will-change:transform,opacity}
+.steam .s1{margin-left:-8px}.steam .s2{margin-left:1px;height:56px;animation-delay:1.1s;animation-duration:4.4s}
+.steam .s3{margin-left:-2px;height:38px;animation-delay:2.2s;animation-duration:3.3s}
+.steam-slow .s{animation-duration:5.2s}.steam-slow .s2{animation-delay:1.8s}
+.steam-tall{height:90px}.steam-tall .s{height:64px}
+@keyframes steamRise{
+  0%{opacity:0;transform:translate(0,8px) scaleX(1) rotate(0deg)}
+  22%{opacity:.75}
+  45%{transform:translate(-5px,-18px) scaleX(1.25) rotate(-6deg)}
+  70%{opacity:.4;transform:translate(5px,-38px) scaleX(.9) rotate(5deg)}
+  100%{opacity:0;transform:translate(-2px,-62px) scaleX(1.35) rotate(-3deg)}}
+
+/* mist */
+.mist{position:absolute;pointer-events:none;z-index:5;filter:blur(18px);will-change:transform,opacity;
+  background:radial-gradient(closest-side,rgba(244,246,247,.9),rgba(244,246,247,.35) 55%,transparent 75%)}
+.mist-1{top:34%;left:-25%;width:70%;height:170px;opacity:.75;animation:mistDrift1 26s linear infinite}
+.mist-2{top:52%;left:-30%;width:85%;height:150px;opacity:.6;animation:mistDrift2 38s linear infinite}
+.mist-3{top:20%;left:-20%;width:60%;height:200px;opacity:.5;filter:blur(28px);animation:mistDrift3 32s linear infinite}
+.mist-low{bottom:6%;left:-15%;width:130%;height:120px;opacity:.8;filter:blur(14px);
+  background:linear-gradient(to top,rgba(240,242,243,.9),transparent);animation:mistLow 22s ease-in-out infinite alternate}
+@keyframes mistDrift1{from{transform:translateX(0)}to{transform:translateX(90vw) translateY(-26px)}}
+@keyframes mistDrift2{from{transform:translateX(0) translateY(10px)}to{transform:translateX(80vw) translateY(-18px)}}
+@keyframes mistDrift3{from{transform:translateX(10vw);opacity:.2}30%{opacity:.6}to{transform:translateX(85vw) translateY(-34px);opacity:.3}}
+@keyframes mistLow{from{transform:translateX(-3%)}to{transform:translateX(4%) translateY(-8px)}}
+.vignette{position:absolute;inset:0;z-index:6;pointer-events:none;
+  background:radial-gradient(115% 100% at 50% 42%,transparent 58%,rgba(35,50,48,.38) 100%)}
+
+/* hero copy — left aligned journal opening */
+.hero-inner{position:relative;z-index:10;text-align:left;max-width:1120px;margin:0 auto;padding:0 28px;width:100%;animation:heroCopy 1.4s var(--ease) .25s both}
+.hero-copy{max-width:560px;background:linear-gradient(to right,rgba(232,223,201,.88),rgba(232,223,201,.55) 75%,transparent);
+  padding:26px 30px 26px 0;border-radius:0 14px 14px 0}
+@keyframes heroCopy{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:.7rem;letter-spacing:.3em;color:#3d4a44;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:34px;height:1.5px;background:var(--terra);display:inline-block}
+.hero h1{font-size:clamp(3rem,8vw,5.4rem);color:#20261f;transform:rotate(-1.5deg);transform-origin:left center;margin:12px 0 4px}
+.hero h1 span{font-style:italic;font-weight:400;color:#33463f}
+.hero-tag{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:#3d4a44;margin:0 0 6px}
+.hero-sub{font-size:.98rem;max-width:44ch;margin:0 0 16px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#4a554e;margin:0 0 20px}
+.hero-meta i{opacity:.4;font-style:normal}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-note{margin:16px 0 0;font-family:var(--serif);font-style:italic;font-size:1.05rem;color:#5a6660}
+.wx-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(61,74,68,.35);border-radius:100px;padding:5px 14px;background:rgba(247,241,228,.5)}
+.wx-dot{width:8px;height:8px;border-radius:50%;background:var(--brass);animation:wxPulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes wxPulse{0%,100%{opacity:.5}50%{opacity:1}}
+body[data-phase="sunset"] .wx-pill,body[data-phase="night"] .wx-pill{border-color:rgba(216,201,174,.4);background:rgba(24,18,12,.4)}
+.chalk-live{margin:14px 0 0;padding-top:12px;border-top:1px dashed rgba(242,236,220,.3);font-size:.85rem;color:#e8c98f}
+.hero-title-steam{display:flex;gap:8px;margin-bottom:2px}
+.hero-title-steam span{width:7px;height:28px;border-radius:8px;background:linear-gradient(to top,transparent,rgba(255,255,255,.9));filter:blur(2px);opacity:0;animation:steamRise 3s ease-in-out infinite}
+.hero-title-steam span:nth-child(2){animation-delay:1s;height:36px}
+.hero-title-steam span:nth-child(3){animation-delay:2s}
+.scroll-hint{position:absolute;bottom:16px;left:28px;z-index:10;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;
+  color:#3d4a44;text-decoration:none;display:flex;align-items:center;gap:10px;opacity:.75}
+.scroll-hint span{width:34px;height:1.5px;background:#3d4a44;display:block;animation:hintSlide 2.2s ease-in-out infinite}
+@keyframes hintSlide{0%{transform:scaleX(0);transform-origin:left}55%{transform:scaleX(1);transform-origin:left}56%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease);will-change:opacity,transform}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ============ SECTION BASICS ============ */
+.section{padding:110px 0;position:relative}
+.kicker{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:30px;height:1.5px;background:var(--terra)}
+.section h2{font-size:clamp(2.1rem,4.5vw,3.2rem);color:var(--ink);max-width:16ch}
+.section-sub{max-width:56ch;margin:14px 0 0}
+
+/* ============ ABOUT ============ */
+.about{background:var(--paper);overflow:hidden}
+.about::before{content:"";position:absolute;inset:0;opacity:.55;
+  background:repeating-linear-gradient(0deg,transparent 0 30px,rgba(120,100,80,.07) 30px 31px)}
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start;position:relative}
+.lede{font-family:var(--serif);font-size:1.35rem;color:var(--ink);line-height:1.5}
+.dropcap::first-letter{font-family:var(--serif);font-size:3.2em;float:left;line-height:.85;padding-right:10px;color:var(--terra)}
+.sign{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:#7a6a5c;margin-top:18px}
+.about-card{background:var(--cream);border:1px solid rgba(31,22,16,.12);border-radius:6px;padding:32px 30px;
+  box-shadow:0 24px 60px rgba(60,50,40,.14);position:relative;transform:rotate(1.2deg)}
+.about-card::before{content:"";position:absolute;inset:8px;border:1px solid var(--brass);border-radius:3px;opacity:.55;pointer-events:none}
+.tape{position:absolute;width:96px;height:26px;background:rgba(220,205,175,.85);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.tape-1{top:-13px;left:24px;transform:rotate(-8deg)}
+.tape-2{top:-13px;right:24px;transform:rotate(7deg)}
+.fact{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed #c9bba8}
+.fact:last-child{border-bottom:0}
+.fact b{font-family:var(--serif);font-size:1.05rem;color:var(--terra-deep);min-width:92px;font-weight:600}
+.fact span{font-size:.92rem}
+
+/* ============ MENU — postcard / ticket cards ============ */
+.menu{background:linear-gradient(to bottom,var(--paper),var(--paper-deep));border-top:1px solid rgba(31,22,16,.1);border-bottom:1px solid rgba(31,22,16,.1)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 34px}
+.chip{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;border-radius:100px;
+  border:1px solid rgba(31,22,16,.3);background:transparent;color:var(--ink);cursor:pointer;transition:all .7s var(--ease)}
+.chip:hover{border-color:var(--terra);transform:translateY(-2px)}
+.chip.active{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.tickets{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.ticket{background:var(--cream);border-radius:8px;position:relative;display:grid;grid-template-columns:64px 1fr;
+  border:1px solid rgba(31,22,16,.14);box-shadow:0 18px 44px rgba(60,50,40,.14);overflow:hidden;
+  transition:transform .9s var(--ease),box-shadow .9s var(--ease),opacity .9s var(--ease)}
+.ticket:hover{transform:translateY(-6px);box-shadow:0 28px 60px rgba(60,50,40,.2)}
+.ticket.hidden{display:none}
+.stub{background:var(--pine);color:#f2ecdc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:22px 0;border-right:2px dashed rgba(247,241,228,.5);position:relative}
+.ticket:nth-child(2) .stub{background:var(--terra)}
+.ticket:nth-child(3) .stub{background:#6b5a33}
+.ticket:nth-child(4) .stub{background:var(--pine-deep)}
+.stub-num{font-family:var(--serif);font-size:1.5rem}
+.stub-label{writing-mode:vertical-rl;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;opacity:.85}
+.ticket-body{padding:26px 28px;position:relative}
+.ticket-body h3{font-size:1.5rem;display:flex;align-items:center;gap:10px}
+.ticket-body h3 .steam-inline{position:relative;width:22px;height:30px}
+.ticket-body h3 .steam-inline i{position:absolute;bottom:0;left:50%;width:5px;height:24px;border-radius:6px;
+  background:linear-gradient(to top,transparent,rgba(120,130,135,.7));filter:blur(2px);opacity:0;animation:steamRise 3.4s ease-in-out infinite}
+.ticket-note{font-family:var(--serif);font-style:italic;font-size:.98rem;margin:6px 0 14px}
+.dish{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dotted #c9bba8}
+.dish:last-child{border-bottom:0}
+.dish-name{font-weight:500;font-size:.94rem}
+.dish-desc{display:block;font-weight:300;font-size:.8rem;color:var(--ink-soft)}
+.dots{flex:1;border-bottom:1px dotted #b3a48c;transform:translateY(-4px)}
+.price{font-family:var(--serif);color:var(--terra-deep);font-size:1.02rem;white-space:nowrap}
+.ticket-stamp{position:absolute;top:16px;right:16px;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--terra);border:1.5px solid var(--terra);border-radius:4px;padding:5px 10px;transform:rotate(8deg);opacity:.8}
+.menu-foot{margin-top:30px;font-family:var(--serif);font-style:italic;text-align:left;color:#7a6a5c}
+
+/* ============ GALLERY ============ */
+.gallery{background:var(--ink);color:var(--cream);overflow:hidden}
+.gallery .kicker{color:#dfa06f}.gallery .kicker::before{background:#dfa06f}
+.gallery h2{color:var(--cream)}
+.gallery .section-sub{color:#b9b2a4}
+.strip-viewport{position:relative;margin-top:44px;overflow:hidden}
+.strip-viewport.drag{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.strip-viewport.drag::-webkit-scrollbar{display:none}
+.strip{display:flex;gap:22px;width:max-content;padding:6px 24px 18px;animation:galleryDrift 55s linear infinite alternate;will-change:transform}
+.strip-viewport:hover .strip{animation-play-state:paused}
+@keyframes galleryDrift{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 11px))}}
+.frame{width:280px;flex-shrink:0;background:#fbf6ea;border-radius:4px;padding:12px 12px 14px;color:var(--ink);
+  border:1px solid rgba(0,0,0,.2);box-shadow:0 18px 44px rgba(0,0,0,.35);
+  transition:transform .9s var(--ease),box-shadow .9s var(--ease);will-change:transform}
+.frame:nth-child(odd){transform:rotate(-2deg)}
+.frame:nth-child(even){transform:rotate(1.6deg)}
+.frame:hover{transform:rotate(0deg) translateY(-8px) scale(1.02) !important;box-shadow:0 28px 60px rgba(0,0,0,.5)}
+.frame-img{height:190px;border-radius:2px;position:relative;overflow:hidden}
+.frame-img::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(closest-side,rgba(244,246,247,.5),transparent 70%) 20% 60%/60% 30% no-repeat,
+  linear-gradient(to top,rgba(20,28,30,.35),transparent 55%);filter:blur(.3px)}
+.f1 .frame-img{background:linear-gradient(160deg,#bcc9cf,#5d727b 60%,#2c3c42)}
+.f2 .frame-img{background:linear-gradient(160deg,#e8d9c2,#9a7358 60%,#4e382b)}
+.f3 .frame-img{background:linear-gradient(160deg,#8fa1a9,#33444b)}
+.f4 .frame-img{background:linear-gradient(160deg,#dde3e6,#5d727b)}
+.f5 .frame-img{background:linear-gradient(160deg,#d6c9b6,#6b5a4a 60%,#3a3029)}
+.f6 .frame-img{background:linear-gradient(160deg,#c8b8a8,#4a3a32)}
+.frame figcaption{font-family:var(--serif);font-style:italic;font-size:1rem;color:#4a443c;padding:10px 4px 0;text-align:left}
+.frame figcaption small{display:block;font-family:var(--sans);font-style:normal;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#8a7a6a;margin-top:2px}
+.strip-fade{position:absolute;top:0;bottom:0;width:90px;pointer-events:none}
+.strip-fade.left{left:0;background:linear-gradient(to right,var(--ink),transparent)}
+.strip-fade.right{right:0;background:linear-gradient(to left,var(--ink),transparent)}
+.strip-hint{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;opacity:.5;margin:10px 0 0;color:#b9b2a4}
+
+/* ============ EVENING LIGHTS MODE ============ */
+.mode-toggle{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:10px 18px;border-radius:100px;border:1px solid rgba(31,22,16,.3);background:transparent;color:var(--ink);cursor:pointer;
+  transition:transform .8s var(--ease),box-shadow .8s,color 1s,border-color 1s}
+.mode-toggle:hover{border-color:var(--terra);transform:translateY(-2px);box-shadow:0 10px 26px var(--terra-glow)}
+.phase-wrap{position:relative}
+.phase-menu{position:absolute;top:calc(100% + 10px);right:0;background:var(--cream);border:1px solid rgba(31,22,16,.15);
+  border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.25);padding:8px;min-width:215px;z-index:99}
+.phase-menu[hidden]{display:none}
+.phase-menu button{display:flex;width:100%;gap:10px;align-items:center;background:none;border:0;padding:11px 14px;border-radius:8px;
+  font-family:var(--sans);font-size:.82rem;cursor:pointer;color:var(--ink);text-align:left}
+.phase-menu button:hover{background:rgba(168,74,42,.12)}
+.phase-menu button.active{color:var(--terra-deep);font-weight:600}
+.phase-menu button.active::after{content:"✓";margin-left:auto}
+body[data-phase="sunset"] .phase-menu,body[data-phase="night"] .phase-menu{background:#2c231a;border-color:rgba(242,232,213,.2)}
+body[data-phase="sunset"] .phase-menu button,body[data-phase="night"] .phase-menu button{color:#f2e8d5}
+body[data-phase="sunset"] .phase-menu button.active,body[data-phase="night"] .phase-menu button.active{color:#e8c98f}
+.stars{position:absolute;inset:0 0 42% 0;z-index:2;pointer-events:none;opacity:0;transition:opacity 2s var(--ease) .3s;
+  background-image:radial-gradient(1.5px 1.5px at 12% 20%,#fff,transparent),radial-gradient(1px 1px at 28% 55%,#fff,transparent),radial-gradient(1.5px 1.5px at 44% 12%,#fff,transparent),radial-gradient(1px 1px at 61% 38%,#fff,transparent),radial-gradient(1.5px 1.5px at 76% 18%,#fff,transparent),radial-gradient(1px 1px at 88% 50%,#fff,transparent),radial-gradient(1px 1px at 35% 75%,#fff,transparent),radial-gradient(1.5px 1.5px at 68% 68%,#fff,transparent),radial-gradient(1px 1px at 95% 28%,#fff,transparent),radial-gradient(1px 1px at 5% 60%,#fff,transparent)}
+.sky::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity 1.8s var(--ease);pointer-events:none;
+  background:radial-gradient(700px 300px at 70% 88%,rgba(255,150,80,.5),transparent 60%),linear-gradient(to bottom,#141d2b 0%,#26344a 40%,#6b4a3a 68%,#3a2c22 100%)}
+.hills-far,.hills-far path,.hills-mid,.hills-mid path,.pine{transition:fill 1.8s var(--ease)}
+.cafe{transition:filter 1.8s var(--ease)}
+.hero-copy{position:relative;isolation:isolate}
+.hero-copy::after{content:"";position:absolute;inset:-6px -30px -6px 0;border-radius:0 14px 14px 0;z-index:0;
+  background:linear-gradient(to right,rgba(24,18,12,.9),rgba(24,18,12,.55) 75%,transparent);opacity:0;transition:opacity 1.6s var(--ease)}
+.hero-copy>*{position:relative;z-index:1}
+.hero-copy h1,.hero-tag,.hero-sub,.hero-meta,.hero-note,.eyebrow{transition:color 1.2s var(--ease)}
+/* ---- Auto day phases: morning is the base theme ---- */
+body[data-phase="day"] .sky::after{background:linear-gradient(to bottom,rgba(255,250,235,.5),rgba(255,250,235,0) 65%);opacity:1}
+body[data-phase="sunset"] .sky::after{opacity:1}
+body[data-phase="night"] .sky::after{background:radial-gradient(600px 260px at 72% 90%,rgba(255,130,70,.22),transparent 60%),linear-gradient(to bottom,#0b1220 0%,#1a2740 45%,#3a2c30 75%,#191410 100%);opacity:1}
+body[data-phase="sunset"] .stars{opacity:.3}
+body[data-phase="night"] .stars{opacity:.95}
+body[data-phase="day"] .hills-far{fill:#8ba19a}
+body[data-phase="day"] .hills-mid{fill:#66807a}
+body[data-phase="sunset"] .hills-far{fill:#7d6a6e}
+body[data-phase="sunset"] .hills-mid{fill:#4e4448}
+body[data-phase="sunset"] .hills-far .snow{fill:#f0d9c0}
+body[data-phase="night"] .hills-far{fill:#2c3a4e}
+body[data-phase="night"] .hills-mid{fill:#1e2a38}
+body[data-phase="night"] .hills-far .snow{fill:rgba(220,228,238,.55)}
+body[data-phase="sunset"] .pine{fill:#33262c}
+body[data-phase="night"] .pine{fill:#141e22}
+body[data-phase="day"] .cold-overlay{background:rgba(140,160,172,.18)}
+body[data-phase="sunset"] .cold-overlay{background:rgba(150,80,60,.22)}
+body[data-phase="night"] .cold-overlay{background:rgba(30,40,70,.4)}
+body[data-phase="sunset"] .cafe{filter:brightness(.85) saturate(1.12)}
+body[data-phase="night"] .cafe{filter:brightness(.68) saturate(1.05)}
+body[data-phase="day"] .bulb i{animation:none;opacity:.45;box-shadow:none}
+body[data-phase="sunset"] .bulb i{box-shadow:0 0 22px 8px rgba(255,200,110,.85);opacity:1}
+body[data-phase="night"] .bulb i{box-shadow:0 0 26px 10px rgba(255,200,110,.95);opacity:1}
+body[data-phase="day"] .door-glow{opacity:.35}
+body[data-phase="sunset"] .door-glow{opacity:.95}
+body[data-phase="night"] .door-glow{opacity:1}
+body[data-phase="sunset"] .hero-copy::after,body[data-phase="night"] .hero-copy::after{opacity:1}
+body[data-phase="sunset"] .hero h1,body[data-phase="night"] .hero h1{color:#f4e9d4}
+body[data-phase="sunset"] .hero h1 span,body[data-phase="night"] .hero h1 span{color:#e8c98f}
+body[data-phase="sunset"] .hero-tag,body[data-phase="sunset"] .eyebrow,body[data-phase="night"] .hero-tag,body[data-phase="night"] .eyebrow{color:#d8c9ae}
+body[data-phase="sunset"] .hero-sub,body[data-phase="night"] .hero-sub{color:#cfc2ab}
+body[data-phase="sunset"] .hero-meta,body[data-phase="night"] .hero-meta{color:#bfae90}
+body[data-phase="sunset"] .hero-note,body[data-phase="night"] .hero-note{color:#dfa06f}
+body[data-phase="sunset"] .scroll-hint,body[data-phase="night"] .scroll-hint{color:#d8c9ae}
+body[data-phase="sunset"] .scroll-hint span,body[data-phase="night"] .scroll-hint span{background:#d8c9ae}
+body[data-phase="sunset"] .nav,body[data-phase="night"] .nav{background:linear-gradient(to bottom,rgba(24,18,12,.9),rgba(24,18,12,.55) 70%,transparent)}
+body[data-phase="sunset"] .brand,body[data-phase="sunset"] .nav-link,body[data-phase="night"] .brand,body[data-phase="night"] .nav-link{color:#f2e8d5}
+body[data-phase="sunset"] .nav-toggle span,body[data-phase="night"] .nav-toggle span{background:#f2e8d5}
+body[data-phase="sunset"] .mode-toggle,body[data-phase="night"] .mode-toggle{color:#f2e8d5;border-color:rgba(242,232,213,.4)}
+body[data-phase="sunset"] .btn-small,body[data-phase="night"] .btn-small{background:#f2e8d5;color:#1c130d}
+
+/* ============ EVENTS ============ */
+.events{background:var(--paper-deep);border-top:1px solid rgba(31,22,16,.1)}
+.event-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:40px}
+.event{background:var(--cream);border:1px solid rgba(31,22,16,.14);border-top:4px solid var(--pine);border-radius:8px;padding:24px 22px;
+  box-shadow:0 16px 40px rgba(60,50,40,.12);transition:transform .9s var(--ease),box-shadow .9s var(--ease)}
+.event:nth-child(2){border-top-color:var(--terra)}
+.event:nth-child(3){border-top-color:var(--brass)}
+.event:nth-child(4){border-top-color:var(--pine-deep)}
+.event:hover{transform:translateY(-6px);box-shadow:0 26px 56px rgba(60,50,40,.2)}
+.event-date{display:flex;gap:10px;align-items:baseline;margin-bottom:10px}
+.event-date b{font-family:var(--serif);font-size:2rem;color:var(--terra-deep);line-height:1;font-weight:600}
+.event-date span{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft)}
+.event h3{font-size:1.25rem;margin-bottom:6px}
+.event p{font-size:.87rem;margin:0 0 12px}
+.event-time{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--pine-deep)}
+.events-note{margin-top:26px;font-family:var(--serif);font-style:italic;color:#7a6a5c}
+
+/* ============ AAJ KA BOARD (chalkboard) ============ */
+.board{background:var(--paper);padding:80px 0 0}
+.chalk{position:relative;background:linear-gradient(170deg,#35493f,#23332d);border:12px solid #6b4d3a;border-radius:10px;
+  box-shadow:0 26px 60px rgba(31,22,16,.3),inset 0 0 80px rgba(0,0,0,.35);padding:40px 44px;color:#f2ecdc;overflow:hidden}
+.chalk::before{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(242,236,220,.35);border-radius:4px;pointer-events:none}
+.chalk::after{content:"";position:absolute;top:-2px;left:60px;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#d8cfbe,#8a7a5c);box-shadow:220px 0 0 -1px #6f6250,440px 0 0 -1px #6f6250}
+.chalk-date{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:#d8c98f;margin:0 0 6px}
+.chalk-title{font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,3.5vw,2.5rem);color:#f6efdd;margin:0 0 20px;text-shadow:0 0 1px rgba(246,239,221,.6)}
+.chalk-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.chalk-label{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:#b9c2b2;margin:0 0 8px}
+.chalk-special{font-family:var(--serif);font-size:1.5rem;color:#ffe9b8;margin:0 0 6px;text-shadow:0 0 1px rgba(255,233,184,.6)}
+.chalk-desc{font-size:.9rem;color:#cfc7b4;margin:0}
+.chalk-foot{margin:24px 0 0;padding-top:16px;border-top:1px dashed rgba(242,236,220,.3);font-family:var(--serif);font-style:italic;color:#d8cfbe}
+.chalk-foot a{color:#e8c98f;text-decoration:none;border-bottom:1px solid #e8c98f}
+.chalk-foot a:hover{color:#ffe9b8}
+
+/* ============ KICKER DRAW on reveal ============ */
+.kicker.reveal::before{width:0;transition:width 1.4s var(--ease) .2s}
+.kicker.reveal.visible::before{width:30px}
+
+/* ============ RIBBON marquee ============ */
+.ribbon{background:var(--ink);color:#e8d9b8;overflow:hidden;border-top:1px solid var(--brass);border-bottom:1px solid var(--brass);padding:12px 0;position:relative;z-index:20}
+.ribbon-track{display:flex;width:max-content;animation:ribbon 36s linear infinite;font-family:var(--serif);font-style:italic;font-size:1.05rem;white-space:nowrap}
+.ribbon-track span{padding-right:12px}
+@keyframes ribbon{to{transform:translateX(-50%)}}
+
+/* ============ BIRDS across hero sky ============ */
+.bird{position:absolute;left:-8%;z-index:3;width:34px;height:14px;opacity:0;pointer-events:none}
+.bird i{position:absolute;top:0;left:0;width:17px;height:10px;border-top:2.5px solid #3d4a52;border-radius:50% 50% 0 0;transform-origin:right bottom;animation:flap .55s ease-in-out infinite alternate}
+.bird i:last-child{left:17px;transform-origin:left bottom}
+@keyframes flap{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+.bird-one{top:19%;animation:flyAcross 44s linear infinite 6s}
+.bird-two{top:25%;animation:flyAcross 62s linear infinite 24s}
+.bird-two i{border-color:#4a5a60}
+@keyframes flyAcross{0%{left:-8%;opacity:0}6%{opacity:.7}90%{opacity:.7}100%{left:104%;opacity:0}}
+
+/* ============ PHOTOS — vintage first, colour on hover ============ */
+.frame-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  filter:sepia(.35) contrast(.97) brightness(.98);animation:kenburns 14s ease-in-out infinite alternate;transition:filter 1s var(--ease)}
+.frame:nth-child(even) .frame-img img{animation-delay:-7s}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.1)}}
+.frame:hover .frame-img img{filter:none;animation-play-state:paused}
+.about-photo{margin:0 0 22px;background:#fbf6ea;padding:10px 10px 12px;border-radius:3px;transform:rotate(-1.5deg);
+  box-shadow:0 14px 34px rgba(60,50,40,.18);transition:transform .9s var(--ease)}
+.about-photo:hover{transform:rotate(0deg) translateY(-4px)}
+.about-photo img{width:100%;height:220px;object-fit:cover;border-radius:2px;display:block;filter:sepia(.3) contrast(.97);transition:filter 1s var(--ease)}
+.about-photo:hover img{filter:none}
+.about-photo figcaption{font-family:var(--serif);font-style:italic;font-size:.95rem;color:#5a4a3d;padding:8px 2px 0}
+.menu-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:30px 0 6px}
+.menu-photos figure{margin:0;background:#fbf6ea;padding:8px 8px 10px;border-radius:4px;box-shadow:0 12px 30px rgba(60,50,40,.14);transition:transform .9s var(--ease)}
+.menu-photos figure:nth-child(odd){transform:rotate(-1.5deg)}
+.menu-photos figure:nth-child(even){transform:rotate(1.2deg)}
+.menu-photos figure:hover{transform:rotate(0) translateY(-5px)}
+.menu-photos img{width:100%;height:130px;object-fit:cover;border-radius:2px;display:block;filter:sepia(.3) contrast(.97);transition:filter 1s var(--ease),transform 1s var(--ease)}
+.menu-photos figure:hover img{filter:none;transform:scale(1.03)}
+.menu-photos figcaption{font-family:var(--serif);font-style:italic;font-size:.85rem;padding:6px 2px 0;color:#5a4a3d}
+
+/* ============ LIGHTBOX ============ */
+.lightbox{position:fixed;inset:0;z-index:120;background:rgba(20,14,10,.9);display:grid;place-items:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .6s var(--ease)}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox figure{margin:0;max-width:min(920px,94vw);background:#fbf6ea;padding:12px 12px 14px;border-radius:4px;
+  transform:scale(.96) rotate(-1deg);transition:transform .6s var(--ease)}
+.lightbox.open figure{transform:scale(1) rotate(0deg)}
+.lightbox img{max-width:100%;max-height:74vh;border-radius:2px;display:block;object-fit:contain}
+.lightbox figcaption{font-family:var(--serif);font-style:italic;padding:10px 4px 0;color:#4a443c}
+.lightbox-close{position:absolute;top:18px;right:22px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(247,241,228,.5);
+  background:transparent;color:#f7f1e4;font-size:1.3rem;cursor:pointer;transition:background .6s,transform .6s}
+.lightbox-close:hover{background:var(--terra);transform:rotate(90deg)}
+
+/* ============ TEAM ============ */
+.team{background:var(--paper)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:40px}
+.member{background:#fbf6ea;border:1px solid rgba(31,22,16,.12);border-radius:6px;padding:12px 12px 20px;
+  box-shadow:0 16px 40px rgba(60,50,40,.14);transition:transform .9s var(--ease),box-shadow .9s var(--ease)}
+.member:nth-child(odd){transform:rotate(-1.4deg)}
+.member:nth-child(even){transform:rotate(1.2deg)}
+.member:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 26px 56px rgba(60,50,40,.22)}
+.member-photo{height:230px;border-radius:3px;overflow:hidden;background:#8fa1a9}
+.member-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.35) contrast(.97);transition:filter 1s var(--ease),transform 1.2s var(--ease)}
+.member:hover .member-photo img{filter:none;transform:scale(1.05)}
+.member h3{font-size:1.3rem;margin:14px 6px 2px}
+.member-role{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-deep);margin:0 6px 8px}
+.member-quote{font-family:var(--serif);font-style:italic;font-size:.95rem;margin:0 6px}
+
+/* ============ AROUND THE CAFÉ ============ */
+.around{background:var(--paper-deep);border-top:1px solid rgba(31,22,16,.1)}
+.around-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+.trail{background:var(--cream);border:1px solid rgba(31,22,16,.14);border-radius:10px;padding:26px 26px 28px;position:relative;overflow:hidden;
+  transition:transform .9s var(--ease),box-shadow .9s var(--ease)}
+.trail::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;opacity:.5;
+  background:repeating-linear-gradient(to right,var(--pine) 0 14px,transparent 14px 24px)}
+.trail:hover{transform:translateY(-6px);box-shadow:0 26px 56px rgba(60,50,40,.18)}
+.trail-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.trail-num{font-family:var(--serif);font-size:2rem;color:var(--pine);line-height:1}
+.trail-diff{color:var(--terra);letter-spacing:4px;font-size:.8rem}
+.trail h3{font-size:1.4rem;margin-bottom:4px}
+.trail-meta{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 10px}
+.trail-desc{font-size:.92rem;margin:0}
+.around-sub{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,3vw,2rem);margin:52px 0 6px}
+.around-note{margin:0 0 26px;max-width:62ch}
+.spot-tag{display:inline-block;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cream);
+  background:var(--pine);border-radius:100px;padding:5px 14px;margin-bottom:12px}
+.spot:nth-child(even) .spot-tag{background:var(--terra)}
+
+/* ============ PHOTO BOOTH ============ */
+.booth{background:var(--paper-deep);border-top:1px solid rgba(31,22,16,.1)}
+.booth-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:40px;align-items:start}
+.viewfinder{background:#211a13;border-radius:12px;padding:18px;border:1px solid var(--brass);box-shadow:0 26px 60px rgba(31,22,16,.35)}
+.vf-frame{position:relative;border-radius:6px;overflow:hidden;background:#0e0c09;aspect-ratio:4/3}
+.vf-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.45) contrast(1.02) brightness(.98)}
+.vf-mist{position:absolute;left:-10%;right:-10%;bottom:6%;height:64px;background:rgba(240,242,243,.35);filter:blur(12px);pointer-events:none;animation:mistLow 7s ease-in-out infinite alternate}
+.vf-corner{position:absolute;width:26px;height:26px;border:2px solid rgba(232,201,143,.9);pointer-events:none;z-index:3}
+.vf-corner.tl{top:12px;left:12px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.vf-corner.tr{top:12px;right:12px;border-left:0;border-bottom:0;border-radius:0 6px 0 0}
+.vf-corner.bl{bottom:12px;left:12px;border-right:0;border-top:0;border-radius:0 0 0 6px}
+.vf-corner.br{bottom:12px;right:12px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.vf-msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#d8cfbe;font-family:var(--serif);font-style:italic;font-size:1.1rem;line-height:1.6;padding:20px}
+.vf-msg[hidden]{display:none}
+.vf-count{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:5rem;color:#fff;
+  text-shadow:0 4px 30px rgba(0,0,0,.6);opacity:0;pointer-events:none}
+.vf-count.pop{animation:countPop .7s var(--ease) both}
+@keyframes countPop{0%{opacity:0;transform:scale(1.6)}25%{opacity:1}100%{opacity:0;transform:scale(1)}}
+.vf-flash{position:absolute;inset:0;background:#fff8ea;opacity:0;pointer-events:none}
+.vf-flash.go{animation:flashGo .5s ease-out both}
+@keyframes flashGo{0%{opacity:0}15%{opacity:.95}100%{opacity:0}}
+.booth-controls{padding:18px 4px 4px;display:grid;gap:16px}
+.filters{display:flex;gap:10px;flex-wrap:wrap}
+.booth .chip{border-color:rgba(247,241,228,.35);color:#f2e8d5}
+.booth .chip.active{background:#f2e8d5;color:#211a13;border-color:#f2e8d5}
+.booth .chip:hover{border-color:#e8c98f}
+.shutter-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.shutter{width:78px;height:78px;border-radius:50%;background:var(--terra);border:4px solid #f2e8d5;color:#fff;display:grid;place-items:center;
+  cursor:pointer;box-shadow:0 0 0 4px rgba(168,74,42,.35),0 14px 30px rgba(0,0,0,.4);transition:transform .5s var(--ease),box-shadow .5s,background .5s;flex-shrink:0}
+.shutter:hover:not(:disabled){transform:scale(1.06);background:var(--terra-deep)}
+.shutter:active:not(:disabled){transform:scale(.94)}
+.shutter:disabled{opacity:.35;cursor:not-allowed}
+.booth-note{font-size:.78rem;color:#a89a86;margin:0}
+.booth-result{display:grid;gap:18px;justify-items:start}
+.result-photo{margin:0;background:#fbf6ea;padding:12px 12px 14px;border-radius:4px;transform:rotate(1.5deg);
+  box-shadow:0 20px 50px rgba(60,50,40,.25);max-width:420px;width:100%}
+.result-photo canvas{width:100%;border-radius:2px;display:block}
+.result-photo figcaption{font-family:var(--serif);font-style:italic;padding:10px 4px 0;color:#4a443c}
+.result-empty{border:2px dashed rgba(31,22,16,.3);border-radius:10px;padding:40px 30px;font-family:var(--serif);font-style:italic;
+  color:var(--ink-soft);max-width:420px}
+.result-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ============ PROGRESS + TO-TOP ============ */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:96;pointer-events:none}
+.progress i{display:block;height:100%;background:linear-gradient(to right,var(--terra),var(--brass));transform:scaleX(0);transform-origin:left}
+.to-top{position:fixed;right:22px;bottom:22px;z-index:85;width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--cream);
+  border:1px solid var(--brass);display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease),background .8s}
+.to-top.show{opacity:1;pointer-events:auto;transform:none}
+.to-top:hover{background:var(--terra)}
+
+/* ============ SCROLLBAR + FOCUS ============ */
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:var(--paper-deep)}
+::-webkit-scrollbar-thumb{background:#b09a6a;border-radius:8px;border:2px solid var(--paper-deep)}
+::-webkit-scrollbar-thumb:hover{background:var(--terra)}
+:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
+
+/* ============ WINTER — snowfall, snow caps, cold breath ============ */
+.snowfall{position:fixed;inset:0;z-index:94;pointer-events:none}
+.cafe-roof::before{content:"";position:absolute;top:-9px;left:8px;right:8px;height:13px;
+  background:linear-gradient(to bottom,#ffffff,#dfe9ec);border-radius:12px 12px 5px 5px;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.snowman{position:absolute;left:12px;bottom:0;width:46px;height:74px;z-index:2}
+.sm-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:42px;height:42px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff,#dbe6ea);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.sm-head{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff,#dbe6ea);box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.sm-head::before{content:"";position:absolute;top:9px;left:6px;width:4px;height:4px;border-radius:50%;background:#222;box-shadow:8px 0 0 #222}
+.sm-scarf{position:absolute;bottom:32px;left:50%;transform:translateX(-50%) rotate(-4deg);width:34px;height:8px;background:var(--terra);border-radius:4px}
+.breath{position:absolute;top:-4px;left:24px;width:14px;height:20px;pointer-events:none}
+.breath i{position:absolute;bottom:0;left:0;width:9px;height:14px;border-radius:8px;
+  background:radial-gradient(closest-side,rgba(255,255,255,.9),transparent);filter:blur(2px);opacity:0;animation:breathPuff 3.4s ease-out infinite}
+.breath.b2 i{animation-delay:1.7s}
+@keyframes breathPuff{0%{opacity:0;transform:translate(0,2px) scale(.6)}25%{opacity:.65}100%{opacity:0;transform:translate(7px,-22px) scale(1.3)}}
+
+/* ============ MEHMAAN DIARY ============ */
+.diary{background:var(--paper)}
+.wall{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:38px}
+.note{background:#fbf5e6;border:1px solid rgba(31,22,16,.1);border-radius:3px;padding:24px 20px 18px;position:relative;
+  box-shadow:0 14px 34px rgba(60,50,40,.14);transition:transform .9s var(--ease),box-shadow .9s var(--ease)}
+.note:nth-child(3n+1){transform:rotate(-1.6deg)}
+.note:nth-child(3n+2){transform:rotate(1.2deg)}
+.note:nth-child(3n){transform:rotate(-.6deg)}
+.note:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 24px 50px rgba(60,50,40,.2)}
+.note::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(2deg);width:70px;height:20px;
+  background:rgba(220,205,175,.9);box-shadow:0 2px 5px rgba(0,0,0,.12)}
+.note p{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--ink);margin:0 0 10px}
+.note cite{font-style:normal;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-deep)}
+.note-new{animation:quietFade 1.2s var(--ease) both}
+.diary-form{margin-top:36px;background:var(--cream);border:1px dashed var(--brass);border-radius:10px;padding:28px;max-width:660px}
+.diary-form h3{font-size:1.4rem;margin-bottom:4px}
+.diary-form>p{font-size:.9rem;margin:0 0 18px}
+.diary-row{display:grid;grid-template-columns:200px 1fr;gap:14px;margin-bottom:14px}
+
+/* ============ VISIT — map + hours ============ */
+.visit{background:var(--paper)}
+.visit-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;margin-top:44px;align-items:stretch}
+.map-card{background:var(--cream);border:1px solid rgba(31,22,16,.15);border-radius:10px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(60,50,40,.14);position:relative;min-height:420px;display:flex;flex-direction:column}
+.map-art{flex:1;min-height:300px;background:
+  radial-gradient(300px 160px at 70% 30%,rgba(140,170,160,.35),transparent),
+  repeating-linear-gradient(0deg,transparent 0 34px,rgba(58,95,88,.08) 34px 35px),
+  repeating-linear-gradient(90deg,transparent 0 34px,rgba(58,95,88,.08) 34px 35px),
+  #efe6d2;position:relative;overflow:hidden}
+.map-art svg{position:absolute;inset:0;width:100%;height:100%}
+.map-mist{position:absolute;left:-10%;right:-10%;height:70px;background:rgba(240,242,243,.6);filter:blur(14px);animation:mistLow 9s ease-in-out infinite alternate}
+.pin{position:absolute;top:42%;left:56%;transform:translate(-50%,-100%);text-align:center;z-index:3}
+.pin-dot{width:20px;height:20px;border-radius:50% 50% 50% 0;background:var(--terra);transform:rotate(-45deg);margin:0 auto;
+  border:3px solid #fff;box-shadow:0 6px 16px rgba(0,0,0,.3);animation:pinBob 2.6s ease-in-out infinite}
+@keyframes pinBob{0%,100%{transform:rotate(-45deg) translate(0,0)}50%{transform:rotate(-45deg) translate(-3px,3px)}}
+.pin-label{font-family:var(--serif);font-style:italic;font-size:.95rem;background:var(--ink);color:var(--cream);
+  padding:4px 12px;border-radius:20px;white-space:nowrap;margin-top:8px;display:inline-block}
+.map-foot{padding:20px 24px;border-top:2px dashed #c9bba8;font-size:.9rem}
+.map-toggle{position:absolute;top:12px;left:12px;z-index:5;display:flex;gap:8px}
+.map-toggle .chip{background:rgba(247,241,228,.94);box-shadow:0 4px 14px rgba(0,0,0,.18);padding:8px 16px}
+.map-live{min-height:300px;flex:1;background:#e8e2d2}
+.map-live iframe{width:100%;height:100%;min-height:340px;border:0;display:block;filter:sepia(.25) saturate(.9)}
+.map-actions{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 24px;border-top:1px solid rgba(31,22,16,.12)}
+.spot-dir{display:inline-block;margin-top:12px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--terra-deep);padding-bottom:2px;transition:color .5s}
+.spot-dir:hover{color:var(--terra)}
+.hours-card{background:var(--ink);color:var(--cream);border-radius:10px;padding:36px 34px;position:relative;overflow:hidden}
+.hours-card::before{content:"";position:absolute;inset:10px;border:1px solid var(--brass);border-radius:6px;opacity:.5;pointer-events:none}
+.hours-card h3{color:var(--cream);font-size:1.6rem;margin-bottom:4px}
+.hours-card .sub{color:#b9b2a4;font-size:.9rem;margin:0 0 18px}
+.hour-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dotted rgba(247,241,228,.25);font-size:.92rem}
+.hour-row:last-of-type{border-bottom:0}
+.hour-row b{font-weight:500}.hour-row span{color:#d8cfbE;color:#d8cfbe}
+.open-badge{display:inline-block;margin-top:16px;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:#9fd4a8;border:1px solid rgba(159,212,168,.5);padding:8px 18px;border-radius:100px}
+.reach{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.reach li{display:flex;gap:12px;font-size:.9rem;color:#cfc7b4}
+.reach li::before{content:"→";color:#dfa06f;flex-shrink:0}
+
+/* ============ CONTACT ============ */
+.contact{background:linear-gradient(to bottom,var(--paper),var(--paper-deep));border-top:1px solid rgba(31,22,16,.1)}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;margin-top:40px;align-items:start}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;color:var(--ink)}
+.field input,.field select,.field textarea{width:100%;padding:14px 18px;border-radius:10px;border:1px solid rgba(31,22,16,.25);
+  background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:.95rem;outline:none;transition:border-color .7s,box-shadow .7s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terra);box-shadow:0 0 0 3px var(--terra-glow)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-success{background:var(--cream);border:1px solid var(--brass);border-radius:12px;padding:44px 36px;text-align:left;
+  box-shadow:0 20px 50px rgba(60,50,40,.15);animation:quietFade 1.4s var(--ease) both}
+@keyframes quietFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.form-success .steam-row{display:flex;gap:8px;margin-bottom:12px}
+.form-success .steam-row span{width:7px;height:30px;border-radius:8px;background:linear-gradient(to top,transparent,rgba(120,130,135,.8));
+  filter:blur(2px);opacity:0;animation:steamRise 3s ease-in-out infinite}
+.form-success .steam-row span:nth-child(2){animation-delay:1s;height:38px}
+.form-success .steam-row span:nth-child(3){animation-delay:2s}
+.form-success h3{font-size:1.9rem;margin-bottom:8px}
+.socials{display:flex;gap:12px;margin-top:26px}
+.soc{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(31,22,16,.3);
+  color:var(--ink);text-decoration:none;transition:transform .8s var(--ease),box-shadow .8s,border-color .8s,color .8s,background .8s;will-change:transform}
+.soc:hover{transform:translateY(-3px);border-color:var(--terra);color:#fff;background:var(--terra);box-shadow:0 10px 26px var(--terra-glow)}
+.handle{font-size:.85rem;margin:14px 0 0}
+.handle a{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--terra-deep)}
+.handle a:hover{color:var(--terra)}
+
+/* ============ FOOTER ============ */
+.footer{background:#1c130d;color:#a89a86;padding:46px 0}
+.footer-grid{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.footer-brand{font-family:var(--serif);font-size:1.6rem;color:var(--cream);margin:0}
+.footer-brand em{color:#dfa06f}
+.footer-tag{margin:6px 0 0;font-size:.86rem}
+.footer-small{grid-column:1/-1;font-size:.76rem;opacity:.55;margin:8px 0 0}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:920px){
+  .event-grid{grid-template-columns:1fr 1fr}
+  .wall{grid-template-columns:1fr 1fr}
+  .mode-toggle span{display:none}
+  .mode-toggle{padding:10px 12px}
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;background:var(--cream);flex-direction:column;padding:20px 32px;gap:16px;box-shadow:0 20px 40px rgba(0,0,0,.15)}
+  .about-grid,.visit-grid,.contact-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .around-grid{grid-template-columns:1fr}
+  .booth-grid{grid-template-columns:1fr}
+  .tickets{grid-template-columns:1fr}
+  .pines-right{display:none}
+  .cafe{width:135vw}
+  .hero-copy{padding-right:16px}
+  .table-group.tg2{display:none}
+  .section{padding:80px 0}
+}
+@media(max-width:560px){
+  .event-grid,.wall{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .menu-photos{grid-template-columns:1fr 1fr}
+  .chalk-grid{grid-template-columns:1fr}
+  .chalk{padding:30px 24px}
+  .diary-row{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+  .ticket{grid-template-columns:1fr}
+  .stub{flex-direction:row;padding:12px;border-right:0;border-bottom:2px dashed rgba(247,241,228,.5)}
+  .stub-label{writing-mode:horizontal-tb}
+  .frame{width:230px}
+  .hero{padding-top:110px}
+  .scroll-hint{display:none}
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .hero,.hero-inner,.hero-copy{animation:none !important;opacity:1 !important;transform:none !important}
+  .reveal{opacity:1 !important;transform:none !important}
+  .mist,.steam .s,.hero-title-steam span,.ticket-body h3 .steam-inline i,.form-success .steam-row span,.map-mist,.strip{animation:none !important;opacity:.35 !important}
+  .ribbon-track,.frame-img img,.bird{animation:none !important}
+  .breath i{animation:none !important;opacity:0 !important}
+  .wx-dot{animation:none !important}
+  .bird{opacity:0 !important}
+  .strip{transform:none !important}
+}
+</style>
+</head>
+<body data-phase="morning">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+<canvas class="snowfall" id="snowfall" aria-hidden="true"></canvas>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="brand">
+    <span class="stamp" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10h13v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5Z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M9 7c-.6-1 .6-1.6 0-2.6M12 7c-.6-1 .6-1.6 0-2.6"/></svg>
+    </span>
+    <span><span class="brand-name">Musafir <em>Cafe</em></span><span class="brand-sub">EST. 1998 · MUSSOORIE HILLS</span></span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#menu" class="nav-link">Menu</a>
+    <a href="#gallery" class="nav-link">Gallery</a>
+    <a href="#booth" class="nav-link">Booth</a>
+    <a href="#events" class="nav-link">Events</a>
+    <a href="#diary" class="nav-link">Diary</a>
+    <a href="#visit" class="nav-link">Find Us</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+  <div class="phase-wrap">
+  <button class="mode-toggle" id="modeToggle" aria-label="Theme" aria-haspopup="true" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg>
+    <span id="phaseLabel">Auto</span>
+  </button>
+  <div class="phase-menu" id="phaseMenu" hidden role="menu" aria-label="Choose theme">
+    <button type="button" data-phase="auto" role="menuitem">Auto · time of day</button>
+    <button type="button" data-phase="morning" role="menuitem">Subah · morning</button>
+    <button type="button" data-phase="day" role="menuitem">Din · midday</button>
+    <button type="button" data-phase="sunset" role="menuitem">Shaam · sunset</button>
+    <button type="button" data-phase="night" role="menuitem">Raat · night</button>
+  </div>
+  </div>
+  <a href="#contact" class="btn btn-small">Visit Us</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="sky" aria-hidden="true"></div>
+  <div class="cold-overlay" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="bird bird-one" aria-hidden="true"><i></i><i></i></div>
+  <div class="bird bird-two" aria-hidden="true"><i></i><i></i></div>
+
+  <svg class="hills hills-far" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,210 L120,150 L240,190 L360,120 L480,170 L600,110 L730,180 L860,130 L990,185 L1120,140 L1240,190 L1360,150 L1440,180 L1440,320 L0,320 Z" />
+    <path class="snow" d="M360,120 l18,22 -12,6 -10,-8 -8,8 -12,-6 Z M600,110 l20,24 -13,6 -11,-9 -9,9 -13,-6 Z M860,130 l18,22 -12,6 -10,-8 -8,8 -12,-6 Z" />
+  </svg>
+  <svg class="hills hills-mid" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,200 C180,150 320,190 480,160 C640,130 760,180 920,150 C1080,120 1240,175 1440,145 L1440,300 L0,300 Z" />
+  </svg>
+
+  <div class="pines pines-left" aria-hidden="true">
+    <svg viewBox="0 0 120 220" class="pine pine-1"><path d="M60 5 L95 70 L75 70 L100 125 L78 125 L105 180 L15 180 L42 125 L20 125 L45 70 L25 70 Z"/><rect x="52" y="180" width="16" height="30" rx="2"/></svg>
+    <svg viewBox="0 0 120 220" class="pine pine-2"><path d="M60 5 L95 70 L75 70 L100 125 L78 125 L105 180 L15 180 L42 125 L20 125 L45 70 L25 70 Z"/><rect x="52" y="180" width="16" height="30" rx="2"/></svg>
+    <svg viewBox="0 0 120 220" class="pine pine-3"><path d="M60 5 L95 70 L75 70 L100 125 L78 125 L105 180 L15 180 L42 125 L20 125 L45 70 L25 70 Z"/><rect x="52" y="180" width="16" height="30" rx="2"/></svg>
+  </div>
+  <div class="pines pines-right" aria-hidden="true">
+    <svg viewBox="0 0 120 220" class="pine pine-4"><path d="M60 5 L95 70 L75 70 L100 125 L78 125 L105 180 L15 180 L42 125 L20 125 L45 70 L25 70 Z"/><rect x="52" y="180" width="16" height="30" rx="2"/></svg>
+    <svg viewBox="0 0 120 220" class="pine pine-5"><path d="M60 5 L95 70 L75 70 L100 125 L78 125 L105 180 L15 180 L42 125 L20 125 L45 70 L25 70 Z"/><rect x="52" y="180" width="16" height="30" rx="2"/></svg>
+  </div>
+
+  <div class="cafe" aria-hidden="true">
+    <div class="cafe-roof"></div>
+    <div class="cafe-post post-left"></div>
+    <div class="cafe-post post-right"></div>
+    <div class="light-string">
+      <svg viewBox="0 0 800 60" preserveAspectRatio="none" class="wire" style="width:100%;height:100%"><path d="M0,5 Q400,55 800,5" fill="none"/></svg>
+      <div class="bulbs">
+        <span class="bulb b1"><i></i></span><span class="bulb b2"><i></i></span><span class="bulb b3"><i></i></span>
+        <span class="bulb b4"><i></i></span><span class="bulb b5"><i></i></span><span class="bulb b6"><i></i></span>
+        <span class="bulb b7"><i></i></span>
+      </div>
+    </div>
+    <div class="deck">
+      <div class="table-group tg1">
+        <div class="person person-sit p-green">
+          <span class="head"><span class="cap"></span><span class="breath"><i></i></span></span><span class="body"></span>
+          <span class="arm arm-lift"><span class="cup-mini"></span></span>
+        </div>
+        <div class="table">
+          <div class="table-top">
+            <div class="cup"><div class="steam"><span class="s s1"></span><span class="s s2"></span><span class="s s3"></span></div></div>
+            <div class="cup"><div class="steam steam-slow"><span class="s s1"></span><span class="s s2"></span></div></div>
+          </div>
+          <div class="table-leg"></div>
+        </div>
+        <div class="person person-sit p-rust">
+          <span class="head head-turn"><span class="shawl"></span><span class="scarf"></span></span><span class="body"></span><span class="arm"></span>
+        </div>
+        <div class="bench"></div>
+      </div>
+      <div class="table-group tg2">
+        <div class="person person-sit p-navy">
+          <span class="head"><span class="beanie"></span><span class="breath b2"><i></i></span></span><span class="body"></span>
+          <span class="arm arm-lift slow"><span class="cup-mini"></span></span>
+        </div>
+        <div class="table">
+          <div class="table-top">
+            <div class="cup"><div class="steam steam-tall"><span class="s s1"></span><span class="s s2"></span><span class="s s3"></span></div></div>
+          </div>
+          <div class="table-leg"></div>
+        </div>
+        <div class="stool"></div>
+      </div>
+      <div class="person person-stand p-cream">
+        <span class="head head-turn-2"></span><span class="body long"></span><span class="legs"></span>
+        <span class="holding-steam"><span class="cup-mini"></span></span>
+      </div>
+      <div class="snowman" aria-hidden="true"><span class="sm-head"></span><span class="sm-scarf"></span><span class="sm-body"></span></div>
+      <div class="cafe-door"><span class="door-glow"></span><span class="door-sign">chai · stories · shelter</span></div>
+    </div>
+  </div>
+
+  <div class="mist mist-1" aria-hidden="true"></div>
+  <div class="mist mist-2" aria-hidden="true"></div>
+  <div class="mist mist-3" aria-hidden="true"></div>
+  <div class="mist mist-low" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Mussoorie · Landour Hills · 6,800 ft · Winter</p>
+      <div class="hero-title-steam" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h1>Musafir <span>Cafe</span></h1>
+      <p class="hero-tag">A quiet stop for travelers in the hills.</p>
+      <p class="hero-sub">Wooden benches outside, mist on the railing, and chai that arrives before you ask. Come as a traveller, leave as a regular.</p>
+      <div class="hero-meta"><span>Open Daily</span><i>·</i><span>7:30 AM – 9:00 PM</span><i>·</i><span>Outdoor Seating</span><i>·</i><span class="wx-pill"><span class="wx-dot"></span><span id="wxPill">checking the sky…</span></span></div>
+      <div class="hero-cta">
+        <a href="#menu" class="btn btn-terra">See the Menu</a>
+        <a href="#visit" class="btn btn-line">Find the Café</a>
+      </div>
+      <p class="hero-note">−2°C, snow likely — the kettle is already on.</p>
+    </div>
+  </div>
+  <a href="#about" class="scroll-hint"><span></span>come in slowly</a>
+</header>
+
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    <span>slow chai&nbsp;&nbsp;✦&nbsp;&nbsp;winterline sunsets&nbsp;&nbsp;✦&nbsp;&nbsp;snowfall Dec–Feb&nbsp;&nbsp;✦&nbsp;&nbsp;deck maggi&nbsp;&nbsp;✦&nbsp;&nbsp;bonfire evenings&nbsp;&nbsp;✦&nbsp;&nbsp;window seat&nbsp;&nbsp;✦&nbsp;&nbsp;since 1998&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+    <span>slow chai&nbsp;&nbsp;✦&nbsp;&nbsp;winterline sunsets&nbsp;&nbsp;✦&nbsp;&nbsp;snowfall Dec–Feb&nbsp;&nbsp;✦&nbsp;&nbsp;deck maggi&nbsp;&nbsp;✦&nbsp;&nbsp;bonfire evenings&nbsp;&nbsp;✦&nbsp;&nbsp;window seat&nbsp;&nbsp;✦&nbsp;&nbsp;since 1998&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<main>
+  <!-- ============ ABOUT ============ -->
+  <section class="section about" id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <p class="kicker">Our story — page one</p>
+        <h2>A wooden deck,<br/>a kettle, and time.</h2>
+        <p class="lede" style="margin-top:20px">In 1998, Dorje — a bus driver who kept missing his own halts — parked an old tea stall under the deodars near Char Dukan and never left.</p>
+        <p class="dropcap">The stall grew a roof, then a deck, then a row of mismatched wooden benches that have held twenty-seven years of travellers. Trekkers heading for Dhanaulti, writers hiding from deadlines, couples who took a wrong turn on Mall Road and never corrected it — everyone finds the same thing here: a hot kulhad pressed into cold hands, and nobody in a hurry.</p>
+        <p>We still brew on a slow wood stove. The water boils differently at this height, and so do conversations. There is no music playlist — only wind, kettles, and the occasional story someone finally tells out loud. In winter, the famous Mussoorie winterline burns red over the Doon valley — the whole deck goes quiet for it.</p>
+        <p class="sign">— kept warm for you, the Musafir family</p>
+      </div>
+      <aside class="about-card reveal" data-delay="150">
+        <div class="tape tape-1" aria-hidden="true"></div>
+        <div class="tape tape-2" aria-hidden="true"></div>
+        <figure class="about-photo">
+          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Café deck on a misty morning" loading="lazy" onerror="this.remove()" />
+          <figcaption>The deck, 7 AM — first kettle, first light.</figcaption>
+        </figure>
+        <p class="kicker" style="margin-bottom:8px">Good to know</p>
+        <div class="fact"><b>Since</b><span>1998 — same stove, third roof, original kettle (retired, on the wall).</span></div>
+        <div class="fact"><b>Seating</b><span>Mostly outside on the deck. Blankets in a wicker basket by the door — help yourself.</span></div>
+        <div class="fact"><b>House rule</b><span>One chai minimum per sunset watched. Laptops close at 6 PM; the light is better than your screen.</span></div>
+        <div class="fact"><b>Dogs</b><span>Biscuit-counter regulars welcome. Our Bruno will inspect you at the gate.</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ TEAM ============ -->
+  <section class="section team" id="team">
+    <div class="wrap">
+      <p class="kicker reveal">The people</p>
+      <h2 class="reveal">Kept warm by<br/>warm hands.</h2>
+      <p class="section-sub reveal">Small team, long memories. If Bruno barks at you, it means he likes you. Probably.</p>
+      <div class="team-grid">
+        <article class="member reveal">
+          <div class="member-photo"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Dorje, founder of the café" loading="lazy" onerror="this.remove()" /></div>
+          <h3>Dorje Bhutia</h3>
+          <p class="member-role">Founder · Keeper of the Kettle</p>
+          <p class="member-quote">"First sip is for the mountain."</p>
+        </article>
+        <article class="member reveal" data-delay="100">
+          <div class="member-photo"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Pema at the iron tawa" loading="lazy" onerror="this.remove()" /></div>
+          <h3>Pema</h3>
+          <p class="member-role">Head of the Tawa</p>
+          <p class="member-quote">"Maggi me extra masala, life me extra patience."</p>
+        </article>
+        <article class="member reveal" data-delay="180">
+          <div class="member-photo"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Arjun with chai glasses" loading="lazy" onerror="this.remove()" /></div>
+          <h3>Arjun</h3>
+          <p class="member-role">Chai Runner · Flute</p>
+          <p class="member-quote">"Orders upar, dhun hawa me."</p>
+        </article>
+        <article class="member reveal" data-delay="260">
+          <div class="member-photo"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Bruno the café dog" loading="lazy" onerror="this.remove()" /></div>
+          <h3>Bruno</h3>
+          <p class="member-role">Head of Security</p>
+          <p class="member-quote">"Biscuits accepted as bribe. Shoes will be inspected."</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AAJ KA BOARD ============ -->
+  <section class="board" id="board">
+    <div class="wrap">
+      <div class="chalk reveal">
+        <p class="chalk-date" id="boardDate">—</p>
+        <h2 class="chalk-title">Aaj ka board</h2>
+        <div class="chalk-grid">
+          <div>
+            <p class="chalk-label">Special of the day</p>
+            <p class="chalk-special" id="boardSpecial">—</p>
+            <p class="chalk-desc" id="boardDesc">—</p>
+          </div>
+          <div>
+            <p class="chalk-label">Snow watch</p>
+            <p class="chalk-special" id="boardMist">—</p>
+            <p class="chalk-desc" id="boardAdvice">—</p>
+            <p class="chalk-live" id="boardLive">Deck thermometer se live reading aa rahi hai…</p>
+          </div>
+        </div>
+        <p class="chalk-foot"><span id="boardHours">—</span> · <a href="#menu">full menu dekho →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <section class="section menu" id="menu">
+    <div class="wrap">
+      <p class="kicker reveal">The menu — pinned to the door</p>
+      <h2 class="reveal">Whatever the mist calls for.</h2>
+      <p class="section-sub reveal">Everything is made slow, on the wood stove or the iron tawa. Prices include all the refills of mountain air you want.</p>
+      <div class="menu-photos reveal">
+        <figure><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Sunday thali curry" loading="lazy" onerror="this.remove()" /><figcaption>Sunday thali</figcaption></figure>
+        <figure><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Evening fried snacks" loading="lazy" onerror="this.remove()" /><figcaption>5 PM pakora hour</figcaption></figure>
+        <figure><img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Missed-bus breakfast spread" loading="lazy" onerror="this.remove()" /><figcaption>The breakfast</figcaption></figure>
+        <figure><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Slow coffee with beans" loading="lazy" onerror="this.remove()" /><figcaption>Slow coffee</figcaption></figure>
+      </div>
+      <div class="chips reveal" role="group" aria-label="Filter menu">
+        <button class="chip active" data-filter="all">Everything</button>
+        <button class="chip" data-filter="hot">Hot Drinks</button>
+        <button class="chip" data-filter="cold">Cold Drinks</button>
+        <button class="chip" data-filter="food">Food</button>
+        <button class="chip" data-filter="special">Specials</button>
+      </div>
+      <div class="tickets">
+        <article class="ticket reveal" data-cat="hot">
+          <div class="stub"><span class="stub-num">01</span><span class="stub-label">Hot Drinks</span></div>
+          <div class="ticket-body">
+            <span class="ticket-stamp">stove brewed</span>
+            <h3>Hot Drinks <span class="steam-inline"><i></i></span></h3>
+            <p class="ticket-note">Served in kulhads. Wrap both hands around it — that's the ritual.</p>
+            <div class="dish"><div><span class="dish-name">Kulhad Adrak Chai</span><span class="dish-desc">ginger, crushed with a stone, not a machine</span></div><span class="dots"></span><span class="price">₹60</span></div>
+            <div class="dish"><div><span class="dish-name">Pahadi Filter Coffee</span><span class="dish-desc">slow-dripped, jaggery on the side</span></div><span class="dots"></span><span class="price">₹90</span></div>
+            <div class="dish"><div><span class="dish-name">Hot Cocoa, Thick</span><span class="dish-desc">dark chocolate, pinch of cinnamon</span></div><span class="dots"></span><span class="price">₹120</span></div>
+            <div class="dish"><div><span class="dish-name">Kehwa &amp; Honey</span><span class="dish-desc">green tea, saffron, almonds</span></div><span class="dots"></span><span class="price">₹110</span></div>
+          </div>
+        </article>
+        <article class="ticket reveal" data-cat="cold" data-delay="100">
+          <div class="stub"><span class="stub-num">02</span><span class="stub-label">Cold Drinks</span></div>
+          <div class="ticket-body">
+            <span class="ticket-stamp">summer only</span>
+            <h3>Cold Drinks</h3>
+            <p class="ticket-note">For the two weeks of hill summer, and brave winter souls.</p>
+            <div class="dish"><div><span class="dish-name">Buransh Cooler</span><span class="dish-desc">rhododendron squash, picked in April</span></div><span class="dots"></span><span class="price">₹100</span></div>
+            <div class="dish"><div><span class="dish-name">Iced Filter Coffee</span><span class="dish-desc">same slow drip, over ice, orange peel</span></div><span class="dots"></span><span class="price">₹130</span></div>
+            <div class="dish"><div><span class="dish-name">Masala Shikanji</span><span class="dish-desc">lemon, roasted cumin, black salt</span></div><span class="dots"></span><span class="price">₹80</span></div>
+            <div class="dish"><div><span class="dish-name">Cold Cocoa &amp; Cream</span><span class="dish-desc">for children and the young at altitude</span></div><span class="dots"></span><span class="price">₹140</span></div>
+          </div>
+        </article>
+        <article class="ticket reveal" data-cat="food" data-delay="150">
+          <div class="stub"><span class="stub-num">03</span><span class="stub-label">Food</span></div>
+          <div class="ticket-body">
+            <span class="ticket-stamp">iron tawa</span>
+            <h3>Food</h3>
+            <p class="ticket-note">What the regulars order without looking at this card.</p>
+            <div class="dish"><div><span class="dish-name">Deck Maggi</span><span class="dish-desc">the classic — extra masala, extra mist</span></div><span class="dots"></span><span class="price">₹90</span></div>
+            <div class="dish"><div><span class="dish-name">Aloo Paratha</span><span class="dish-desc">white butter, homemade pickle, dahi</span></div><span class="dots"></span><span class="price">₹130</span></div>
+            <div class="dish"><div><span class="dish-name">Bun Omelette</span><span class="dish-desc">toasted in butter, green chutney</span></div><span class="dots"></span><span class="price">₹110</span></div>
+            <div class="dish"><div><span class="dish-name">Apple Crumble</span><span class="dish-desc">Kinnaur apples, served warm with cream</span></div><span class="dots"></span><span class="price">₹160</span></div>
+          </div>
+        </article>
+        <article class="ticket reveal" data-cat="special" data-delay="220">
+          <div class="stub"><span class="stub-num">04</span><span class="stub-label">Specials</span></div>
+          <div class="ticket-body">
+            <span class="ticket-stamp">ask Dorje</span>
+            <h3>Specials <span class="steam-inline"><i></i></span></h3>
+            <p class="ticket-note">Changes with the weather and Dorje's mood. Both are usually good.</p>
+            <div class="dish"><div><span class="dish-name">The Missed-Bus Breakfast</span><span class="dish-desc">paratha, omelette, chai — for those staying one more day</span></div><span class="dots"></span><span class="price">₹220</span></div>
+            <div class="dish"><div><span class="dish-name">Sunset Pakora Basket</span><span class="dish-desc">onion, potato, green chilli — 5 to 7 PM only</span></div><span class="dots"></span><span class="price">₹150</span></div>
+            <div class="dish"><div><span class="dish-name">Traveller's Thali</span><span class="dish-desc">dal, seasonal sabzi, rice, roti, something sweet</span></div><span class="dots"></span><span class="price">₹240</span></div>
+            <div class="dish"><div><span class="dish-name">Mist Platter (for two)</span><span class="dish-desc">two kulhads + banana bread + the window seat</span></div><span class="dots"></span><span class="price">₹300</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="menu-foot reveal">Mondays the tawa rests — limited food, full chai. Ask about the soup of the day; there is always a soup of the day.</p>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="section gallery" id="gallery" style="padding-bottom:70px">
+    <div class="wrap">
+      <p class="kicker reveal">Postcards from the deck</p>
+      <h2 class="reveal">Mornings we kept.</h2>
+      <p class="section-sub reveal">Shot by travellers, left on our wall. Hover to pick one up.</p>
+    </div>
+    <div class="strip-viewport reveal" id="stripViewport">
+      <div class="strip" id="strip">
+        <figure class="frame f1"><div class="frame-img"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Fog rolling over the hills at sunrise" loading="lazy" onerror="this.remove()" /></div><figcaption>6:12 AM, mist over the deck<small>October · by Zoya</small></figcaption></figure>
+        <figure class="frame f2"><div class="frame-img"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Travellers talking inside a cozy café" loading="lazy" onerror="this.remove()" /></div><figcaption>Regulars at the window table<small>November · by Kabir</small></figcaption></figure>
+        <figure class="frame f3"><div class="frame-img"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Fresh latte art in a ceramic cup" loading="lazy" onerror="this.remove()" /></div><figcaption>Second refill, no regrets<small>November · by Kabir</small></figcaption></figure>
+        <figure class="frame f4"><div class="frame-img"><img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Glass cup of amber tea" loading="lazy" onerror="this.remove()" /></div><figcaption>Kehwa o'clock<small>January · by Meher</small></figcaption></figure>
+        <figure class="frame f5"><div class="frame-img"><img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Layered misty mountain ridges" loading="lazy" onerror="this.remove()" /></div><figcaption>The road, closed. Nobody minded.<small>December · by Arjun</small></figcaption></figure>
+        <figure class="frame f6"><div class="frame-img"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Coffee by a café window" loading="lazy" onerror="this.remove()" /></div><figcaption>Dorje's window seat<small>Every day · by everyone</small></figcaption></figure>
+        <figure class="frame f1" aria-hidden="true"><div class="frame-img"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="" loading="lazy" onerror="this.remove()" /></div><figcaption>6:12 AM, mist over the deck<small>October · by Zoya</small></figcaption></figure>
+        <figure class="frame f2" aria-hidden="true"><div class="frame-img"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="" loading="lazy" onerror="this.remove()" /></div><figcaption>Regulars at the window table<small>November · by Kabir</small></figcaption></figure>
+        <figure class="frame f3" aria-hidden="true"><div class="frame-img"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="" loading="lazy" onerror="this.remove()" /></div><figcaption>Second refill, no regrets<small>November · by Kabir</small></figcaption></figure>
+        <figure class="frame f4" aria-hidden="true"><div class="frame-img"><img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="" loading="lazy" onerror="this.remove()" /></div><figcaption>Kehwa o'clock<small>January · by Meher</small></figcaption></figure>
+        <figure class="frame f5" aria-hidden="true"><div class="frame-img"><img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="" loading="lazy" onerror="this.remove()" /></div><figcaption>The road, closed. Nobody minded.<small>December · by Arjun</small></figcaption></figure>
+        <figure class="frame f6" aria-hidden="true"><div class="frame-img"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="" loading="lazy" onerror="this.remove()" /></div><figcaption>Dorje's window seat<small>Every day · by everyone</small></figcaption></figure>
+      </div>
+      <div class="strip-fade left" aria-hidden="true"></div>
+      <div class="strip-fade right" aria-hidden="true"></div>
+    </div>
+    <div class="wrap"><p class="strip-hint">click a photo to hold it closer · drag sideways</p></div>
+  </section>
+
+  <!-- ============ PHOTO BOOTH ============ -->
+  <section class="section booth" id="booth">
+    <div class="wrap">
+      <p class="kicker reveal">Deck photo booth</p>
+      <h2 class="reveal">Take a cute one<br/>before the mist lifts.</h2>
+      <p class="section-sub reveal">Your camera, our frame. Pick a mood, press click — the photo never leaves your device, nothing is uploaded anywhere.</p>
+      <div class="booth-grid">
+        <div class="viewfinder reveal">
+          <div class="vf-frame">
+            <video id="boothVideo" playsinline muted autoplay></video>
+            <div class="vf-mist" aria-hidden="true"></div>
+            <div class="vf-corner tl" aria-hidden="true"></div>
+            <div class="vf-corner tr" aria-hidden="true"></div>
+            <div class="vf-corner bl" aria-hidden="true"></div>
+            <div class="vf-corner br" aria-hidden="true"></div>
+            <p class="vf-msg" id="boothMsg">Camera is snoozing…<br/>press Start to wake it up.</p>
+            <div class="vf-count" id="boothCount" aria-hidden="true"></div>
+            <div class="vf-flash" id="boothFlash" aria-hidden="true"></div>
+          </div>
+          <div class="booth-controls">
+            <div class="filters" role="group" aria-label="Photo mood">
+              <button type="button" class="chip active" data-mood="vintage">Vintage</button>
+              <button type="button" class="chip" data-mood="mist">Mist</button>
+              <button type="button" class="chip" data-mood="evening">Evening</button>
+            </div>
+            <div class="shutter-row">
+              <button type="button" class="btn btn-small" id="boothStart" style="background:#f2e8d5;color:#211a13">Start camera</button>
+              <button type="button" class="shutter" id="boothClick" disabled aria-label="Take a photo">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h3l2-2.5h6L17 8h3a1.5 1.5 0 0 1 1.5 1.5V18a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V9.5A1.5 1.5 0 0 1 4 8Z"/><circle cx="12" cy="13.5" r="3.6"/></svg>
+              </button>
+              <label class="btn btn-line btn-small" style="border-color:rgba(247,241,228,.35);color:#f2e8d5;cursor:pointer">…or pick a photo<input type="file" id="boothFile" accept="image/*" hidden /></label>
+            </div>
+            <p class="booth-note">Tip: sit by a window, let the mist do the rest. Front camera shows a mirror — the saved photo comes out correct.</p>
+          </div>
+        </div>
+        <div class="booth-result reveal" data-delay="150">
+          <figure class="result-photo" id="resultCard" hidden>
+            <canvas id="boothCanvas"></canvas>
+            <figcaption id="boothCaption"></figcaption>
+          </figure>
+          <div class="result-empty" id="resultEmpty">Your framed memory will appear here — stamped, dated, ready to keep.</div>
+          <div class="result-actions" id="resultActions" hidden>
+            <a class="btn btn-terra" id="boothDownload" download="musafir-memory.png" href="#">Download photo</a>
+            <button type="button" class="btn btn-line" id="boothRetake">Retake</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  <section class="section events" id="events">
+    <div class="wrap">
+      <p class="kicker reveal">Evenings at the café</p>
+      <h2 class="reveal">When the lamps come on.</h2>
+      <p class="section-sub reveal">Small gatherings, no tickets, no microphones louder than the wind. Entry is free with one kulhad.</p>
+      <div class="event-grid">
+        <article class="event reveal">
+          <div class="event-date"><b>26</b><span>Sep · Sat</span></div>
+          <h3>Open-Mic: Hill Stories</h3>
+          <p>Bring a five-minute story — true, half-true, or mist. Tellers drink free.</p>
+          <span class="event-time">7 PM onwards · deck</span>
+        </article>
+        <article class="event reveal" data-delay="100">
+          <div class="event-date"><b>04</b><span>Oct · Sun</span></div>
+          <h3>Bonfire &amp; Baked Apples</h3>
+          <p>Kinnaur apples slow-baked in the coals. Bruno handles security.</p>
+          <span class="event-time">6:30 PM · fire pit</span>
+        </article>
+        <article class="event reveal" data-delay="180">
+          <div class="event-date"><b>11</b><span>Oct · Sun</span></div>
+          <h3>Flute Evening with Arjun</h3>
+          <p>Bamboo flute, no speakers. The mist usually joins in by the third tune.</p>
+          <span class="event-time">6 PM · window corner</span>
+        </article>
+        <article class="event reveal" data-delay="260">
+          <div class="event-date"><b>☾</b><span>Full moon</span></div>
+          <h3>The Long Table</h3>
+          <p>One big table, strangers, thali. Every full moon. Leave as friends.</p>
+          <span class="event-time">7 PM onwards · deck</span>
+        </article>
+      </div>
+      <p class="events-note reveal">Dec–Feb we call regulars the night flakes are forecast. Dates otherwise shift with snowfall and weddings — confirm on the day.</p>
+    </div>
+  </section>
+
+  <!-- ============ MEHMAAN DIARY ============ -->
+  <section class="section diary" id="diary">
+    <div class="wrap">
+      <p class="kicker reveal">Mehmaan diary — the wall by the door</p>
+      <h2 class="reveal">Notes travellers left behind.</h2>
+      <p class="section-sub reveal">Real chits from our pinboard, plus whatever you pin below. It stays here — no account, no app.</p>
+      <div class="wall reveal" id="wall">
+        <article class="note"><p>"Missed our bus. Best decision of the whole trip."</p><cite>— Kabir &amp; Sana, Delhi</cite></article>
+        <article class="note"><p>"Wrote three pages here after two years of nothing."</p><cite>— Meher, Pune</cite></article>
+        <article class="note"><p>"The paratha is good. The silence is better."</p><cite>— Thomas, Berlin</cite></article>
+        <article class="note"><p>"Bruno approved of us. We will be back."</p><cite>— The Iyer family, Bengaluru</cite></article>
+        <article class="note"><p>"Came for one chai. Stayed for the sunset, then dinner."</p><cite>— Ruth, London</cite></article>
+        <article class="note"><p>"Dad finally told his army stories. Thank you, deck bench no. 3."</p><cite>— Aditya, Chandigarh</cite></article>
+      </div>
+      <form class="diary-form reveal" id="diaryForm">
+        <h3>Pin your own note</h3>
+        <p>One or two lines. It appears on this wall instantly.</p>
+        <div class="diary-row">
+          <input id="dName" type="text" placeholder="Your name" maxlength="40" aria-label="Your name" style="padding:14px 18px;border-radius:10px;border:1px solid rgba(31,22,16,.25);background:#fff;color:var(--ink);font-family:var(--sans);font-size:.95rem;outline:none" />
+          <input id="dText" type="text" placeholder="e.g. The mist kept my seat warm…" maxlength="180" aria-label="Your note" style="padding:14px 18px;border-radius:10px;border:1px solid rgba(31,22,16,.25);background:#fff;color:var(--ink);font-family:var(--sans);font-size:.95rem;outline:none" />
+        </div>
+        <div><button type="submit" class="btn btn-terra">Pin it on the wall</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ VISIT ============ -->
+  <section class="section visit" id="visit">
+    <div class="wrap">
+      <p class="kicker reveal">Location &amp; hours</p>
+      <h2 class="reveal">Follow the smell of ginger.</h2>
+      <p class="section-sub reveal">We are not on the main road — that is rather the point. Look for the brass kettle sign where the path bends.</p>
+      <div class="visit-grid">
+        <div class="map-card reveal">
+          <div class="map-toggle" role="group" aria-label="Map style">
+            <button type="button" class="chip active" data-mapview="sketch">Sketch</button>
+            <button type="button" class="chip" data-mapview="live">Live map</button>
+          </div>
+          <div class="map-art" id="mapSketch" aria-hidden="true">
+            <svg viewBox="0 0 400 320" preserveAspectRatio="none">
+              <path d="M-10,250 C80,230 120,260 180,210 C240,160 280,180 410,120" fill="none" stroke="#8a7a5c" stroke-width="14" stroke-linecap="round" opacity=".5"/>
+              <path d="M-10,250 C80,230 120,260 180,210 C240,160 280,180 410,120" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="10 8"/>
+              <path d="M40,-10 C60,80 30,160 90,330" fill="none" stroke="#7fa3a8" stroke-width="7" opacity=".55"/>
+              <g fill="#3A5F58" opacity=".8">
+                <circle cx="300" cy="60" r="9"/><circle cx="330" cy="85" r="12"/><circle cx="285" cy="95" r="8"/>
+                <circle cx="110" cy="90" r="10"/><circle cx="140" cy="115" r="8"/><circle cx="90" cy="130" r="11"/>
+                <circle cx="200" cy="270" r="10"/><circle cx="240" cy="290" r="8"/><circle cx="320" cy="250" r="11"/>
+              </g>
+              <text x="18" y="40" font-family="Fraunces,serif" font-style="italic" font-size="15" fill="#5A4C3E">to Mussoorie ↓</text>
+              <text x="252" y="200" font-family="Fraunces,serif" font-style="italic" font-size="15" fill="#5A4C3E">Char Dukan</text>
+              <text x="228" y="312" font-family="Fraunces,serif" font-style="italic" font-size="15" fill="#5A4C3E">Mall Road · 2 km →</text>
+              <text x="120" y="300" font-family="Fraunces,serif" font-style="italic" font-size="15" fill="#5A4C3E">you smell chai →</text>
+            </svg>
+            <div class="map-mist" style="top:18%"></div>
+            <div class="map-mist" style="top:62%"></div>
+            <div class="pin"><div class="pin-dot"></div><span class="pin-label">Musafir Cafe</span></div>
+          </div>
+          <div class="map-live" id="mapLive" hidden>
+            <iframe title="Musafir Cafe live map" src="https://www.google.com/maps?q=Char%20Dukan%2C%20Landour%2C%20Mussoorie%2C%20Uttarakhand&z=15&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-foot">Musafir Cafe, Tehri Bend, near Char Dukan, Landour,<br/>Mussoorie, Uttarakhand 248179 · look for the brass kettle.</div>
+          <div class="map-actions">
+            <span style="font-size:.82rem">Your location to our gate — distance &amp; time, live.</span>
+            <a class="btn btn-terra btn-small" href="https://www.google.com/maps/dir/?api=1&destination=Char+Dukan,+Landour,+Mussoorie,+Uttarakhand" target="_blank" rel="noopener">Get Directions →</a>
+          </div>
+        </div>
+        <div class="hours-card reveal" data-delay="150">
+          <h3>Hours &amp; reaching us</h3>
+          <p class="sub">The deck is best before 9 AM. After that, share it kindly.</p>
+          <div class="hour-row"><b>Mon – Sun</b><span>7:30 AM – 9:00 PM</span></div>
+          <div class="hour-row"><b>Monday</b><span>Chai only till noon · tawa rests</span></div>
+          <div class="hour-row"><b>Sunset hour</b><span>5 – 7 PM · pakoras, front benches</span></div>
+          <div class="hour-row"><b>Dec – Feb</b><span>Snow standby · deck cleared every morning</span></div>
+          <span class="open-badge">● Open today · kettle on</span>
+          <ul class="reach">
+            <li>On foot: 20 min uphill from Picture Palace via the old bazaar steps.</li>
+            <li>By taxi: ask for “Char Dukan bend” — then 3 min on foot, downhill.</li>
+            <li>By bus: Dehradun → Mussoorie (2 hrs), then walk or shared cab to Landour.</li>
+            <li>Dec – Feb: roads can ice over — start early, and we'll keep the bonfire going till you arrive.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AROUND THE CAFÉ ============ -->
+  <section class="section around" id="around">
+    <div class="wrap">
+      <p class="kicker reveal">Around the café</p>
+      <h2 class="reveal">Stretch your legs<br/>before the next kulhad.</h2>
+      <p class="section-sub reveal">Every walk starts at our gate and ends back at a bench. Tell us where you're headed — we'll pack something for the way.</p>
+      <div class="around-grid">
+        <article class="trail reveal">
+          <div class="trail-top"><span class="trail-num">01</span><span class="trail-diff" aria-label="Easy">●●○</span></div>
+          <h3>Char Dukan Stroll</h3>
+          <p class="trail-meta">5 min · 300 m · easy loop</p>
+          <p class="trail-desc">The classic. Four shops, one legendary bun-omelette rivalry. You'll be back before your chai cools.</p>
+        </article>
+        <article class="trail reveal" data-delay="100">
+          <div class="trail-top"><span class="trail-num">02</span><span class="trail-diff" aria-label="Moderate">●●●</span></div>
+          <h3>Lal Tibba Sunrise</h3>
+          <p class="trail-meta">25 min · 1.2 km · uphill</p>
+          <p class="trail-desc">Highest point around. Leave at 5:30 AM with our flask — we fill it free. Snow boots at the door through January.</p>
+        </article>
+        <article class="trail reveal" data-delay="150">
+          <div class="trail-top"><span class="trail-num">03</span><span class="trail-diff" aria-label="Moderate">●●●</span></div>
+          <h3>Jabarkhet Forest Loop</h3>
+          <p class="trail-meta">45 min · 2.5 km · forest trail</p>
+          <p class="trail-desc">Deodars, silence, sudden langurs. Take the packed paratha — you'll thank us halfway.</p>
+        </article>
+        <article class="trail reveal" data-delay="200">
+          <div class="trail-top"><span class="trail-num">04</span><span class="trail-diff" aria-label="Easy">●●○</span></div>
+          <h3>Prakash Store Run</h3>
+          <p class="trail-meta">10 min · 600 m · easy downhill</p>
+          <p class="trail-desc">Landour's famous peanut butter, then back up for the 4 PM ritual: toast + our chai.</p>
+        </article>
+      </div>
+      <h3 class="around-sub reveal">Famous Mussoorie spots — easy day trips</h3>
+      <p class="around-note reveal">Distances from our gate, with the simplest way to reach. Tell us the night before — we'll arrange the taxi and pack the flask.</p>
+      <div class="around-grid">
+        <article class="trail spot reveal">
+          <span class="spot-tag">Market</span>
+          <h3>Mall Road &amp; Library Bazaar</h3>
+          <p class="trail-meta">2 km · 10 min by cab · 30 min walk down</p>
+          <p class="trail-desc">The classic evening stroll — momos, bookshops, old-school cafes. Kulri end is quieter; the walk back up builds appetite.</p>
+          <a class="spot-dir" href="https://www.google.com/maps/dir/?api=1&destination=Mall+Road,+Mussoorie,+Uttarakhand" target="_blank" rel="noopener">Directions →</a>
+        </article>
+        <article class="trail spot reveal" data-delay="80">
+          <span class="spot-tag">Viewpoint</span>
+          <h3>Gun Hill Point</h3>
+          <p class="trail-meta">3 km · ropeway from Mall Road</p>
+          <p class="trail-desc">Second-highest point, full Doon valley view. It's windier up there — borrow a blanket from our basket first.</p>
+          <a class="spot-dir" href="https://www.google.com/maps/dir/?api=1&destination=Gun+Hill,+Mussoorie,+Uttarakhand" target="_blank" rel="noopener">Directions →</a>
+        </article>
+        <article class="trail spot reveal" data-delay="120">
+          <span class="spot-tag">Waterfall</span>
+          <h3>Kempty Falls</h3>
+          <p class="trail-meta">15 km · 45 min by taxi</p>
+          <p class="trail-desc">The famous one. Leave before 9 AM to beat the crowd — top-stall Maggi tastes better in the mist anyway.</p>
+          <a class="spot-dir" href="https://www.google.com/maps/dir/?api=1&destination=Kempty+Falls,+Uttarakhand" target="_blank" rel="noopener">Directions →</a>
+        </article>
+        <article class="trail spot reveal" data-delay="160">
+          <span class="spot-tag">Heritage</span>
+          <h3>George Everest's House</h3>
+          <p class="trail-meta">6 km · 25 min by taxi</p>
+          <p class="trail-desc">The surveyor's colonial cottage with open Doon views. Best paired with a winterline sunset — take our flask.</p>
+          <a class="spot-dir" href="https://www.google.com/maps/dir/?api=1&destination=George+Everest+House,+Mussoorie,+Uttarakhand" target="_blank" rel="noopener">Directions →</a>
+        </article>
+        <article class="trail spot reveal" data-delay="200">
+          <span class="spot-tag">Sunset walk</span>
+          <h3>Camel's Back Road</h3>
+          <p class="trail-meta">2.5 km · 15 min · flat 3 km walk</p>
+          <p class="trail-desc">Easy ridge road with Doon-facing benches. Go at 4 PM, back in time for pakoras at 6.</p>
+          <a class="spot-dir" href="https://www.google.com/maps/dir/?api=1&destination=Camel%27s+Back+Road,+Mussoorie,+Uttarakhand" target="_blank" rel="noopener">Directions →</a>
+        </article>
+        <article class="trail spot reveal" data-delay="240">
+          <span class="spot-tag">Forest edge</span>
+          <h3>Cloud's End</h3>
+          <p class="trail-meta">7 km · 30 min by taxi</p>
+          <p class="trail-desc">Where the town ends and the oak forest begins. The quietest sunset near Mussoorie — carry nothing, hear everything.</p>
+          <a class="spot-dir" href="https://www.google.com/maps/dir/?api=1&destination=Cloud%27s+End,+Mussoorie,+Uttarakhand" target="_blank" rel="noopener">Directions →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <p class="kicker">Contact · Visit us</p>
+        <h2>Save a bench.<br/>Or just wander in.</h2>
+        <p class="section-sub"> Big group, a birthday in the mist, or a proposal that needs a pine backdrop — write to us. Otherwise, no booking needed; the deck is first-come, first-warmed.</p>
+        <p style="margin-top:18px"><strong>Call the counter:</strong> +91 98370 00000<br/><strong>Write:</strong> namaste@musafircafe.in</p>
+        <div class="socials">
+          <a href="https://instagram.com/soumil006" target="_blank" rel="noopener" aria-label="Instagram — @soumil006" class="soc"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="X" class="soc"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+          <a href="#" aria-label="YouTube" class="soc"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+        <p class="handle">Instagram par milo — <a href="https://instagram.com/soumil006" target="_blank" rel="noopener">@soumil006</a></p>
+      </div>
+      <div class="reveal" data-delay="150">
+        <form id="visitForm" novalidate>
+          <div class="intent" role="group" aria-label="What is this about?">
+            <button type="button" class="chip active" data-intent="book">Book a bench</button>
+            <button type="button" class="chip" data-intent="hello">Just say hello</button>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="vname">Your name</label><input id="vname" name="name" type="text" placeholder="A traveller" autocomplete="name" required /></div>
+            <div class="field"><label for="vphone">Phone / email</label><input id="vphone" name="contact" type="text" placeholder="How do we reach you?" required /></div>
+          </div>
+          <div id="bookFields">
+            <div class="field-row">
+              <div class="field"><label for="vday">Which day?</label><input id="vday" name="day" type="date" /></div>
+              <div class="field"><label for="vslot">Which part of the day?</label>
+                <select id="vslot" name="slot"><option>Morning mist (8 – 11 AM)</option><option>Midday sun (12 – 3 PM)</option><option>Sunset hour (5 – 7 PM)</option><option>Evening lamps (7 – 9 PM)</option></select>
+              </div>
+            </div>
+            <div class="field"><label for="vparty">How many cups?</label>
+              <select id="vparty" name="party"><option>Just me + one kulhad</option><option>Two of us</option><option>3 – 5 travellers</option><option>A whole bus (6+)</option></select>
+            </div>
+          </div>
+          <div id="helloFields" hidden>
+            <div class="field"><label for="vmsg">Your message</label><textarea id="vmsg" name="message" rows="4" placeholder="A birthday in the mist, a quiet corner, feedback on the maggi…"></textarea></div>
+          </div>
+          <button type="submit" class="btn btn-terra">Send word to the café</button>
+        </form>
+        <div class="form-success" id="visitSuccess" hidden>
+          <div class="steam-row" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3 id="vsTitle">Bench saved.</h3>
+          <p style="margin:0" id="vsText">Your word is pinned by the counter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">Musafir <em>Cafe</em></p>
+      <p class="footer-tag">Landour, Mussoorie · since 1998 · open daily 7:30 AM – 9 PM<br/>Come as a traveller, leave as a regular.</p>
+    </div>
+    <a href="#top" class="btn btn-line" style="border-color:rgba(247,241,228,.3);color:var(--cream)">Back to the mist ↑</a>
+    <p class="footer-small">Made with cold hands &amp; warm chai. Prices in rupees, stories free of charge.</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lightbox-close" aria-label="Close photo">×</button>
+  <figure><img id="lightboxImg" src="" alt="" /><figcaption id="lightboxCap"></figcaption></figure>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+/* Musafir Cafe — vanilla JS only: reveals, menu filter, gallery, form, nav. */
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Gentle fade + rise on scroll */
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var el = en.target;
+          var d = parseInt(el.getAttribute('data-delay') || '0', 10);
+          if (d) el.style.transitionDelay = d + 'ms';
+          el.classList.add('visible');
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* Menu filter chips */
+  var chips = document.querySelectorAll('.chip');
+  var tickets = document.querySelectorAll('.ticket');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var f = chip.getAttribute('data-filter');
+      tickets.forEach(function (t) {
+        t.classList.toggle('hidden', f !== 'all' && t.getAttribute('data-cat') !== f);
+      });
+    });
+  });
+
+  /* Gallery: drag-to-hold (drift pauses via CSS :hover + manual pause) */
+  var viewport = document.getElementById('stripViewport');
+  var strip = document.getElementById('strip');
+  if (viewport && strip && !reduceMotion) {
+    viewport.classList.add('drag');
+    var down = false, startX = 0, startScroll = 0, moved = 0;
+    viewport.addEventListener('pointerdown', function (e) {
+      down = true; moved = 0; startX = e.pageX - viewport.offsetLeft; startScroll = viewport.scrollLeft;
+      strip.style.animationPlayState = 'paused';
+      try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    viewport.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.pageX - viewport.offsetLeft - startX;
+      moved = Math.abs(dx);
+      viewport.scrollLeft = startScroll - dx;
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+      viewport.addEventListener(ev, function () {
+        if (moved > 8) {
+          window.__stripDragged = true;
+          setTimeout(function () { window.__stripDragged = false; }, 150);
+        }
+        moved = 0;
+        down = false; strip.style.animationPlayState = '';
+      });
+    });
+  }
+
+  /* Auto day-phase theme — morning / day / sunset / night by the clock */
+  (function phases() {
+    var LABELS = { morning: 'Subah', day: 'Din', sunset: 'Shaam', night: 'Raat' };
+    function phaseForHour(h) {
+      if (h >= 5 && h < 11) return 'morning';
+      if (h >= 11 && h < 16) return 'day';
+      if (h >= 16 && h < 19) return 'sunset';
+      return 'night';
+    }
+    var btn = document.getElementById('modeToggle');
+    var label = document.getElementById('phaseLabel');
+    var menu = document.getElementById('phaseMenu');
+    var mode = 'auto', current = 'morning';
+    try {
+      mode = localStorage.getItem('musafir-phase') || 'auto';
+      if (!localStorage.getItem('musafir-phase') && localStorage.getItem('musafir-evening') === '1') mode = 'sunset';
+      localStorage.removeItem('musafir-evening');
+    } catch (e) {}
+    function paint() {
+      document.body.setAttribute('data-phase', current);
+      if (label) label.textContent = mode === 'auto' ? 'Auto · ' + LABELS[current] : LABELS[current];
+      if (btn) btn.setAttribute('aria-label', 'Theme: ' + (mode === 'auto' ? 'automatic, ' + LABELS[current] : LABELS[current]));
+      document.querySelectorAll('#phaseMenu [data-phase]').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-phase') === mode);
+      });
+    }
+    function apply(p) { current = p; paint(); }
+    function tickAuto() {
+      if (mode !== 'auto') return;
+      var p = phaseForHour(new Date().getHours());
+      if (p !== current) apply(p);
+    }
+    function closeMenu() { if (menu) menu.hidden = true; if (btn) btn.setAttribute('aria-expanded', 'false'); }
+    if (btn && menu) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = menu.hidden;
+        menu.hidden = !open;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.phase-wrap')) closeMenu();
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+      menu.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-phase]');
+        if (!b) return;
+        mode = b.getAttribute('data-phase');
+        try { localStorage.setItem('musafir-phase', mode); } catch (err) {}
+        if (mode === 'auto') tickAuto(); else apply(mode);
+        paint();
+        closeMenu();
+      });
+    }
+    if (mode === 'auto') apply(phaseForHour(new Date().getHours()));
+    else apply(PHASES[mode] ? mode : 'morning');
+    setInterval(tickAuto, 60000);
+  })();
+
+  /* Booking vs hello toggle */
+  var intentBtns = document.querySelectorAll('[data-intent]');
+  var bookF = document.getElementById('bookFields');
+  var helloF = document.getElementById('helloFields');
+  intentBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      intentBtns.forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      var book = b.getAttribute('data-intent') === 'book';
+      if (bookF) bookF.hidden = !book;
+      if (helloF) helloF.hidden = book;
+    });
+  });
+
+  /* Visit form — static message only, no backend */
+  var form = document.getElementById('visitForm');
+  var ok = document.getElementById('visitSuccess');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('vname');
+      var contact = document.getElementById('vphone');
+      var valid = true;
+      [name, contact].forEach(function (input) {
+        if (!input.value.trim()) {
+          valid = false;
+          input.style.borderColor = '#A84A2A';
+          input.addEventListener('input', function h() {
+            input.style.borderColor = ''; input.removeEventListener('input', h);
+          });
+        }
+      });
+      if (!valid) { (name.value.trim() ? contact : name).focus(); return; }
+      var booking = document.querySelector('[data-intent].active');
+      var isBook = !booking || booking.getAttribute('data-intent') === 'book';
+      var title = document.getElementById('vsTitle');
+      var text = document.getElementById('vsText');
+      if (isBook) {
+        var day = document.getElementById('vday');
+        var slot = document.getElementById('vslot');
+        var party = document.getElementById('vparty');
+        var when = 'a misty morning';
+        if (day && day.value) {
+          try { when = new Date(day.value + 'T00:00').toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' }); }
+          catch (err) { when = day.value; }
+        }
+        if (title) title.textContent = 'Bench saved, ' + name.value.trim().split(' ')[0] + '.';
+        if (text) text.textContent = when + ' · ' + (slot ? slot.value : '') + ' · ' + (party ? party.value : '') + '. Come hungry, come cold — the bench by the railing is yours.';
+      } else {
+        if (title) title.textContent = "We'll see you soon.";
+        if (text) text.textContent = 'Your word is pinned by the counter. The kettle is already on.';
+      }
+      form.style.transition = 'opacity 1s ease, transform 1s ease';
+      form.style.opacity = '0';
+      form.style.transform = 'translateY(8px)';
+      setTimeout(function () {
+        form.style.display = 'none';
+        ok.hidden = false;
+      }, 800);
+    });
+    var dayInput = document.getElementById('vday');
+    if (dayInput) dayInput.min = new Date().toISOString().split('T')[0];
+  }
+
+  /* Mehmaan diary wall — notes persist in this browser only */
+  var wall = document.getElementById('wall');
+  var diaryForm = document.getElementById('diaryForm');
+  function addNote(name, text, fresh) {
+    var card = document.createElement('article');
+    card.className = 'note' + (fresh ? ' note-new' : '');
+    var p = document.createElement('p');
+    p.textContent = '\u201C' + text + '\u201D';
+    var cite = document.createElement('cite');
+    cite.textContent = '\u2014 ' + name;
+    card.appendChild(p); card.appendChild(cite);
+    wall.prepend(card);
+  }
+  var savedNotes = [];
+  try { savedNotes = JSON.parse(localStorage.getItem('musafir-notes') || '[]'); } catch (e) {}
+  savedNotes.forEach(function (n) { if (wall && n.name && n.text) addNote(n.name, n.text, false); });
+  if (diaryForm) {
+    diaryForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var n = document.getElementById('dName');
+      var t = document.getElementById('dText');
+      if (!n.value.trim() || !t.value.trim()) { (!n.value.trim() ? n : t).focus(); return; }
+      var note = { name: n.value.trim().slice(0, 40), text: t.value.trim().slice(0, 180) };
+      addNote(note.name, note.text, true);
+      savedNotes.unshift(note);
+      savedNotes = savedNotes.slice(0, 12);
+      try { localStorage.setItem('musafir-notes', JSON.stringify(savedNotes)); } catch (err) {}
+      diaryForm.reset();
+    });
+  }
+
+  /* Aaj ka board — changes every day, no backend */
+  (function dailyBoard() {
+    var specials = [
+      { name: "Traveller's Thali", desc: 'Sunday long lunch — dal, sabzi, rice, roti, something sweet. ₹240' },
+      { name: 'Monday Slow Soup', desc: 'Tawa rests today — soup simmers all morning. Ask what\u2019s in the pot. ₹110' },
+      { name: 'Adrak Extra + Bun Omelette', desc: 'Tuesday combo for trekkers heading downhill. ₹150 together' },
+      { name: 'Fresh Apple Crumble', desc: 'Baked Wednesday morning, gone by sunset. With cream. ₹160' },
+      { name: 'Kehwa & Honey', desc: 'Thursday calm — saffron, almonds, no rushing. ₹110' },
+      { name: 'Sunset Pakora Basket', desc: 'Friday eve, 5–7 PM, front benches. Weekend begins here. ₹150' },
+      { name: 'Mist Platter (for two)', desc: 'Saturday sharing — two kulhads, banana bread, the window seat. ₹300' }
+    ];
+    var mists = [
+      { r: 'Flakes by evening', a: 'Window seat pakdo — the blanket basket is full.' },
+      { r: 'Clear & biting cold', a: 'Winterline at sunset — front benches, 5 PM sharp.' },
+      { r: 'Snow clouds gathering', a: 'Hot cocoa weather — deck cleared every hour.' },
+      { r: 'Fresh snow overnight', a: 'Footprints before 8 AM are yours alone. Boots at the door.' }
+    ];
+    var now = new Date();
+    function set(id, txt) { var el = document.getElementById(id); if (el) el.textContent = txt; }
+    try { set('boardDate', now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })); }
+    catch (e) { set('boardDate', now.toDateString()); }
+    var s = specials[now.getDay()];
+    set('boardSpecial', s.name);
+    set('boardDesc', s.desc);
+    var seed = now.getFullYear() * 372 + (now.getMonth() + 1) * 31 + now.getDate();
+    var m = mists[seed % mists.length];
+    set('boardMist', m.r);
+    set('boardAdvice', m.a);
+    set('boardHours', now.getDay() === 1
+      ? 'Aaj Monday — tawa rest, soup + chai, full menu kal se'
+      : 'Aaj full menu · 7:30 AM – 9:00 PM');
+  })();
+
+  /* Scroll progress + to-top + gentle hero parallax */
+  var prog = document.getElementById('progressBar');
+  var toTop = document.getElementById('toTop');
+  var heroCopyEl = document.querySelector('.hero-copy');
+  function onScrollFX() {
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if (prog) prog.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    if (toTop) toTop.classList.toggle('show', y > 600);
+    if (!reduceMotion && heroCopyEl && y < window.innerHeight) {
+      heroCopyEl.style.transform = 'translateY(' + (y * 0.1).toFixed(1) + 'px)';
+      heroCopyEl.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.9));
+    }
+  }
+  var fxTick = false;
+  window.addEventListener('scroll', function () {
+    if (!fxTick) {
+      fxTick = true;
+      requestAnimationFrame(function () { onScrollFX(); fxTick = false; });
+    }
+  }, { passive: true });
+  onScrollFX();
+  if (toTop) toTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  /* Gallery lightbox — click a photo to hold it closer */
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+  var lbCap = document.getElementById('lightboxCap');
+  function closeLB() { if (lb) lb.classList.remove('open'); }
+  document.querySelectorAll('#strip .frame').forEach(function (f) {
+    f.style.cursor = 'zoom-in';
+    f.addEventListener('click', function () {
+      if (window.__stripDragged) return;
+      var img = f.querySelector('img');
+      if (!img || !img.getAttribute('src') || !lb) return;
+      lbImg.src = img.src.replace('w=800', 'w=1400');
+      lbImg.alt = img.alt || 'Café photo';
+      var cap = f.querySelector('figcaption');
+      lbCap.textContent = cap ? cap.innerText : '';
+      lb.classList.add('open');
+    });
+  });
+  if (lb) {
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.closest('.lightbox-close')) closeLB();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLB(); });
+  }
+
+  /* Deck photo booth — camera, countdown click, café frame, download */
+  (function booth() {
+    var video = document.getElementById('boothVideo');
+    var canvas = document.getElementById('boothCanvas');
+    var startBtn = document.getElementById('boothStart');
+    var clickBtn = document.getElementById('boothClick');
+    var fileInput = document.getElementById('boothFile');
+    var msg = document.getElementById('boothMsg');
+    var count = document.getElementById('boothCount');
+    var flash = document.getElementById('boothFlash');
+    var card = document.getElementById('resultCard');
+    var empty = document.getElementById('resultEmpty');
+    var actions = document.getElementById('resultActions');
+    var dl = document.getElementById('boothDownload');
+    var cap = document.getElementById('boothCaption');
+    if (!video || !canvas) return;
+
+    var MOODS = {
+      vintage: 'sepia(.45) contrast(1.02) brightness(.98)',
+      mist: 'brightness(1.08) contrast(.92) saturate(.85)',
+      evening: 'sepia(.3) saturate(1.35) hue-rotate(-12deg) brightness(.95)'
+    };
+    var mood = 'vintage';
+    var uploadedImg = null;
+    var busy = false;
+
+    document.querySelectorAll('[data-mood]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-mood]').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        mood = b.getAttribute('data-mood');
+        video.style.filter = MOODS[mood];
+      });
+    });
+
+    function say(html) { if (msg) { msg.innerHTML = html; msg.hidden = false; } }
+    function quiet() { if (msg) msg.hidden = true; }
+
+    if (startBtn) startBtn.addEventListener('click', function () {
+      if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+        say('This browser won\u2019t open the camera here.<br/>Pick a photo below instead — the frame works the same.');
+        return;
+      }
+      say('Waking up the camera…');
+      navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, facingMode: 'user' }, audio: false })
+        .then(function (s) {
+          video.srcObject = s;
+          video.onloadeddata = function () { quiet(); if (clickBtn) clickBtn.disabled = false; };
+          startBtn.textContent = 'Restart camera';
+        })
+        .catch(function () {
+          say('Camera is shy (permission denied).<br/>No worry — pick a photo below instead.');
+        });
+    });
+
+    function frameIt(src, sw, sh) {
+      var maxW = 1000;
+      var scale = Math.min(1, maxW / sw);
+      var iw = Math.round(sw * scale), ih = Math.round(sh * scale);
+      var pad = Math.round(iw * 0.06), strip = Math.round(ih * 0.24);
+      canvas.width = iw + pad * 2;
+      canvas.height = ih + pad + strip;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fbf6ea';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      try { ctx.filter = MOODS[mood]; } catch (e) {}
+      ctx.drawImage(src, pad, pad, iw, ih);
+      try { ctx.filter = 'none'; } catch (e2) {}
+      var dateStr = '';
+      try { dateStr = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); }
+      catch (e3) { dateStr = ''; }
+      ctx.fillStyle = '#4a443c';
+      ctx.textBaseline = 'middle';
+      var fs = Math.max(22, Math.round(canvas.width * 0.045));
+      ctx.font = 'italic 600 ' + fs + 'px Georgia, "Times New Roman", serif';
+      ctx.fillText('Musafir Cafe', pad, pad + ih + strip * 0.32);
+      ctx.textAlign = 'right';
+      ctx.font = 'italic ' + Math.round(fs * 0.8) + 'px Georgia, serif';
+      ctx.fillStyle = '#8a5a3a';
+      ctx.fillText(dateStr + ' · Landour', canvas.width - pad, pad + ih + strip * 0.32);
+      ctx.textAlign = 'left';
+      if (cap) cap.textContent = dateStr + ' · ' + mood + ' mood · kept from the mist.';
+      if (dl) dl.href = canvas.toDataURL('image/png');
+      card.hidden = false;
+      empty.style.display = 'none';
+      actions.hidden = false;
+    }
+
+    function snap() {
+      if (video.videoWidth > 0) {
+        // mirror-correct the front camera
+        var tmp = document.createElement('canvas');
+        tmp.width = video.videoWidth; tmp.height = video.videoHeight;
+        var tctx = tmp.getContext('2d');
+        tctx.translate(tmp.width, 0); tctx.scale(-1, 1);
+        tctx.drawImage(video, 0, 0);
+        frameIt(tmp, tmp.width, tmp.height);
+      } else if (uploadedImg) {
+        frameIt(uploadedImg, uploadedImg.naturalWidth, uploadedImg.naturalHeight);
+      }
+    }
+
+    if (clickBtn) clickBtn.addEventListener('click', function () {
+      if (busy || (video.videoWidth === 0 && !uploadedImg)) return;
+      busy = true;
+      var steps = ['3', '2', '1'];
+      var i = 0;
+      (function tick() {
+        if (i < steps.length) {
+          count.textContent = steps[i];
+          count.classList.remove('pop');
+          void count.offsetWidth;
+          count.classList.add('pop');
+          i++;
+          setTimeout(tick, 700);
+        } else {
+          count.classList.remove('pop');
+          flash.classList.remove('go');
+          void flash.offsetWidth;
+          flash.classList.add('go');
+          snap();
+          busy = false;
+        }
+      })();
+    });
+
+    if (fileInput) fileInput.addEventListener('change', function () {
+      var f = fileInput.files && fileInput.files[0];
+      if (!f) return;
+      var url = URL.createObjectURL(f);
+      var img = new Image();
+      img.onload = function () {
+        uploadedImg = img;
+        URL.revokeObjectURL(url);
+        quiet();
+        if (clickBtn) clickBtn.disabled = false;
+        frameIt(img, img.naturalWidth, img.naturalHeight);
+      };
+      img.src = url;
+    });
+
+    var retake = document.getElementById('boothRetake');
+    if (retake) retake.addEventListener('click', function () {
+      card.hidden = true;
+      actions.hidden = true;
+      empty.style.display = '';
+    });
+  })();
+
+  /* Gentle snowfall over the whole site — pauses off-screen */
+  (function snow() {
+    if (reduceMotion) return;
+    var cv = document.getElementById('snowfall');
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    var W, H, flakes = [];
+    function resize() {
+      W = cv.width = window.innerWidth;
+      H = cv.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    var N = Math.min(140, Math.floor(W / 12));
+    for (var i = 0; i < N; i++) {
+      flakes.push({ x: Math.random() * W, y: Math.random() * H, r: 0.8 + Math.random() * 2.2,
+        s: 0.3 + Math.random() * 0.9, o: 0.35 + Math.random() * 0.5, ph: Math.random() * 6.28 });
+    }
+    var t = 0, run = true;
+    document.addEventListener('visibilitychange', function () {
+      run = !document.hidden;
+      if (run) requestAnimationFrame(loop);
+    });
+    function loop() {
+      if (!run) return;
+      t += 0.016;
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#ffffff';
+      for (var j = 0; j < flakes.length; j++) {
+        var f = flakes[j];
+        f.y += f.s;
+        f.x += Math.sin(t + f.ph) * 0.4;
+        if (f.y > H + 4) { f.y = -4; f.x = Math.random() * W; }
+        ctx.globalAlpha = f.o;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, 6.283);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  /* Sketch / live map toggle */
+  var mapBtns = document.querySelectorAll('[data-mapview]');
+  var mapSketch = document.getElementById('mapSketch');
+  var mapLive = document.getElementById('mapLive');
+  mapBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      mapBtns.forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      var isLive = b.getAttribute('data-mapview') === 'live';
+      if (mapSketch) mapSketch.hidden = isLive;
+      if (mapLive) mapLive.hidden = !isLive;
+    });
+  });
+
+  /* Live Mussoorie weather — free Open-Meteo feed, graceful fallback */
+  (function weather() {
+    var pill = document.getElementById('wxPill');
+    var live = document.getElementById('boardLive');
+    function fail() {
+      if (pill) pill.textContent = 'deck thermometer: see the board';
+      if (live) live.textContent = 'Live reading unavailable — look out of the window, it\u2019s prettier.';
+    }
+    function codeText(c) {
+      if (c === 0) return 'saaf aasmaan';
+      if (c <= 3) return 'halke baadal';
+      if (c === 45 || c === 48) return 'ghana kohra';
+      if ((c >= 51 && c <= 57) || (c >= 80 && c <= 82)) return 'halki baarish';
+      if (c >= 61 && c <= 67) return 'baarish';
+      if ((c >= 71 && c <= 77) || c === 85 || c === 86) return 'barfbaari';
+      if (c >= 95) return 'garaj ke saath baarish';
+      return 'pahadi mausam';
+    }
+    function hint(c, h, t) {
+      if ((c >= 71 && c <= 77) || c === 85 || c === 86) return 'Barf pad rahi hai — window seat pakdo.';
+      if (c === 45 || c === 48 || h >= 90) return 'Ghana kohra — blanket basket full hai.';
+      if ((c >= 51 && c <= 67) || (c >= 80 && c <= 82)) return 'Geela mausam — kehwa order karo.';
+      if (t <= 2) return 'Kaatne wali thand — bonfire side lo.';
+      if (t <= 10) return 'Thandi hawa — second kulhad banta hai.';
+      return 'Halki thand — railing wali bench best hai.';
+    }
+    try {
+      var ctl = new AbortController();
+      var to = setTimeout(function () { ctl.abort(); }, 8000);
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=30.46&longitude=78.09&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code&timezone=Asia%2FKolkata', { signal: ctl.signal })
+        .then(function (r) { clearTimeout(to); if (!r.ok) throw new Error('bad'); return r.json(); })
+        .then(function (d) {
+          var c = d.current;
+          if (!c) throw new Error('empty');
+          var t = Math.round(c.temperature_2m), f = Math.round(c.apparent_temperature);
+          if (pill) pill.textContent = 'Mussoorie abhi: ' + t + '\u00B0C (feels ' + f + '\u00B0C) · ' + codeText(c.weather_code);
+          if (live) live.textContent = 'Live — deck par abhi ' + t + '\u00B0C · ' + hint(c.weather_code, c.relative_humidity_2m, t);
+        })
+        .catch(fail);
+    } catch (e) { fail(); }
+  })();
+
+  /* Mobile nav + nav shadow */
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  var nav = document.getElementById('nav');
+  if (toggle && links) {
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.classList.contains('nav-link')) links.classList.remove('open');
+    });
+  }
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      nav.style.boxShadow = window.scrollY > 40 ? '0 10px 30px rgba(31,22,16,.10)' : 'none';
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>
